@@ -1,0 +1,20 @@
+.search-bar input {
+    background-color: rgb(48, 48, 48);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #252525;
+  }
+  
+  .search-bar input::placeholder {
+    color: darkgray;
+    opacity: 1;
+}
+  
+.Button{
+    transition: background-color 0.3s ease;
+}
+.Button:hover {
+    background-color: #e4a724;
+    
+  }
