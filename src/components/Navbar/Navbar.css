@@ -1,10 +1,9 @@
 .navbar {
+  background-color: #212529;
   position: relative;
   top: 0;
   width: 100%;
-  background-color: rgb(48, 48, 48);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  max-height: 50px;
 }
 
 .navbar-title {
@@ -17,18 +16,24 @@
 }
 
 .search-bar input {
-  background: rgb(63, 63, 63);
+  background: #212529;
   border: 1px solid #5e5e5e;
   color: white;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 15px;
   width: 100%;
+  width: 300px;
   max-width: 300px;
   margin-right: 10px;
+  max-height: 40px;
 }
 
 .search-bar button {
-  padding: 10px 20px;
+  padding: 3px 20px;
+  background: none;
+  border-radius: 15px;
+  border-color: #198754;
+  color: rgb(200, 200, 200);
 }
 
 @media (max-width: 768px) {

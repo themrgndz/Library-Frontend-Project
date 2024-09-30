@@ -5,11 +5,11 @@ import './Navbar.css';
 
 const Navbar = () => {
   const handleProfileClick = () => {
-    console.log('Profil butonuna tıklandı');
+    console.log('Giris yapildi...');
   };
 
   const handleLogoutClick = () => {
-    console.log('Çıkış butonuna tıklandı');
+    console.log('Cikis yapildi...');
   };
 
   return (

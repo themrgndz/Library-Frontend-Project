@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "./searchbar.css"
-import { Button } from 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
