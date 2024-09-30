@@ -1,3 +1,4 @@
+/* Kart için mevcut stil */
 .card {
   border-radius: 8px;
   width: 300px;
@@ -6,19 +7,29 @@
   border-color: #16191b;
   background-color: #16191b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, z-index 0.5s ease;
+  position: relative;
 }
+
 
 .card:hover {
-  transform: scale(1.10); /* Kartı %5 büyüt */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover olduğunda gölgeyi artır */
-}
-.card-image {
-  width: 100%;
-  border-color: #16191b;
-  height: auto;
+  transform: scale(1.10);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
+/* Arka planı kapsayan div */
+.container {
+  position: relative; /* Kartın pozisyonunu etkiler */
+}
+
+/* Kart hover edilince arka planı bulanıklaştır */
+.container:hover .background-blur {
+  filter: blur(4px); /* Arka planı bulanıklaştır */
+  transition: filter 0.5s ease; /* Geçiş efekti */
+}
+
+/* Kart içeriği */
 .card-body {
   border-color: #16191b;
   background-color: #16191b;
@@ -38,7 +49,6 @@
 
 .card-button {
   background-color: #007bff;
-  color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;

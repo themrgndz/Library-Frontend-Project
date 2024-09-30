@@ -5,7 +5,7 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = () => {
-    console.log('Aranıyor:', searchTerm);
+    console.log('Searching:', searchTerm);
   };
 
   return (
@@ -14,9 +14,9 @@ const SearchBar = () => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Ara..."
+        placeholder="Search..."
       />
-      <button className="Button" onClick={handleSearch}>Ara</button>
+      <button className="Button" onClick={handleSearch}>Search</button>
     </div>
   );
 };

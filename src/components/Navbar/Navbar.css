@@ -1,5 +1,4 @@
 .navbar {
-  background-color: #212529;
   position: relative;
   top: 0;
   width: 100%;
@@ -18,7 +17,6 @@
 .search-bar input {
   background: #212529;
   border: 1px solid #5e5e5e;
-  color: white;
   padding: 10px;
   border-radius: 15px;
   width: 100%;

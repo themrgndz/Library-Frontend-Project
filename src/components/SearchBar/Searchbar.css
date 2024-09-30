@@ -2,11 +2,10 @@
   background-color: #212529;
 }
 .search-bar input {
-    background-color: rgb(48, 48, 48);
-    color: white;
     padding: 8px;
     border-radius: 50px;
     border: 1px solid #212529;
+    color: aliceblue;
   }
   
   .search-bar input::placeholder {
