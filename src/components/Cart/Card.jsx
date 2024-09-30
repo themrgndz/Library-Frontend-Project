@@ -1,5 +1,5 @@
 import React from 'react';
-import './Card.css'; // CSS dosyasını içe aktar
+import './Card.css';
 
 const Card = ({ imageSrc, title, description, stock, buttonText }) => {
   return (
