@@ -15,7 +15,7 @@ const Container = () => {
             <Card 
               imageSrc="https://marketplace.canva.com/EAFH1JlujwI/2/0/1003w/canva-ye%C5%9Fil-sade-gizemli-orman-foto%C4%9Frafl%C4%B1-roman-kitap-kapa%C4%9F%C4%B1-mfPVe9UxMO0.jpg"  // Kartın resmini buraya ekle
               title="Book 1"
-              description="A brief description of this book will appear here."
+              description="A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. A brief description of this book will appear here. "
               stock={5}
               buttonText="Details"
             />

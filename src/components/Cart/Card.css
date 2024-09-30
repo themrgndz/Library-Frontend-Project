@@ -13,7 +13,6 @@
   transform: scale(1.10); /* Kartı %5 büyüt */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover olduğunda gölgeyi artır */
 }
-
 .card-image {
   width: 100%;
   border-color: #16191b;
