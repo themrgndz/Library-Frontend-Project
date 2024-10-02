@@ -3,7 +3,7 @@ import './Card.css';
 
 const Card = ({ imageSrc, title, description, stock, buttonText, onCardClick }) => {
   
-  const MAX_DESCRIPTION_LENGTH = 55; // Maksimum karakter sayısı
+  const MAX_DESCRIPTION_LENGTH = 55;
 
   const truncatedDescription = description.length > MAX_DESCRIPTION_LENGTH 
     ? description.slice(0, MAX_DESCRIPTION_LENGTH) + '...' 
