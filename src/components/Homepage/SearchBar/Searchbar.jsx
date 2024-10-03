@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './searchbar.css';
 
+const fetchBooks = (searchTerm = '') => {
+  const url = searchTerm 
+    ? `http://localhost:8080/MyLibrary/api/books?search=${encodeURIComponent(searchTerm)}`
+    : 'http://localhost:8080/MyLibrary/api/books';
+};
+
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 

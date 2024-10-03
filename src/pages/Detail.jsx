@@ -1,7 +1,14 @@
-import React from 'react';
+import React from 'react'
+import BookMain from '../components/Detail/BookMain/BookMain'
 
 const Detail = () => {
-  return <h1>Detail Page</h1>;
-};
+  return (
+    <>
+      <div className='Detail'>
+        <BookMain/>
+      </div>
+    </>
+  )
+}
 
-export default Detail;
+export default Detail
