@@ -1,78 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../Navbar/Navbar';
-import Card from '../Cart/Card';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const Container = () => {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [stock, setStock] = useState(0);
+  const [message, setMessage] = useState('');
 
-  const fetchBooks = (searchTerm = '') => {
-    const url = searchTerm 
-      ? `http://localhost:8080/MyLibrary/api/books?search=${searchTerm}`
-      : 'http://localhost:8080/MyLibrary/api/books';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('API Failed');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log("Data from API:", data);
-        setBooks(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setError(error.message);
-        setLoading(false);
+    const bookData = {
+      title,
+      description,
+      imageUrl,
+      stock,
+    };
+
+    console.log('Book Data:', bookData);
+
+    try {
+      const response = await fetch('http://localhost:8080/MyLibrary/api/book', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setMessage(`Hata: ${errorData.error}`);
+        throw new Error('Ağ hatası');
+      }
+
+      const data = await response.json();
+      setMessage('Başarılı: Kitap başarıyla eklendi!');
+      console.log('Başarılı:', data);
+
+      setTitle('');
+      setDescription('');
+      setImageUrl('');
+      setStock(0);
+    } catch (error) {
+      console.error('Hata:', error);
+      setMessage('Kitap eklenirken bir hata oluştu.');
+    }
   };
-
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const handleSearch = (searchTerm) => {
-    setLoading(true);
-    fetchBooks(searchTerm);
-  };
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p style={{ color: 'red' }}>Error: {error}</p>;
-  }
 
   return (
-    <>
-    <Navbar onSearch={handleSearch} />
-      <div className="container">
-        <div className="card-container">
-          {books.length > 0 ? (
-            books.map((book, index) => (
-              <Card
-                key={index}
-                imageSrc={book.image_url}
-                title={book.title}
-                description={book.description}
-                stock={book.stock}
-                buttonText="Details"
-                onCardClick={() => navigate(`/detail/${book.id}`)}
-              />
-            ))
-          ) : (
-            <p>No books found</p>
-          )}
+    <div>
+      {message && <p>{message}</p>}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Kitap Başlığı</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-      </div>
-    </>
+        <div>
+          <label>Açıklama</label>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <label>Resim URL'si</label>
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            required
+          />
+          <label>Stok</label>
+          <input
+            type="number"
+            value={stock}
+            onChange={(e) => setStock(Number(e.target.value))}
+            required
+          />
+        </div>
+        <button type="submit">Kitap Ekle</button>
+      </form>
+    </div>
   );
 };
 
