@@ -1,38 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import BookCover from '../BookCover/BookCover';
 import BookDetails from '../BookDetails/BookDetails';
 import SimilarBooks from '../SimilarBooks/SimilarBooks';
-import './style.css';
+
+import "./style.css"
 
 const BookDetail = () => {
+  const { id } = useParams();
   const [bookInstance, setBookInstance] = useState(null);
   const [similarBooks, setSimilarBooks] = useState([]);
 
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/MyLibrary/api/books');
-        // İlk kitabı alıyoruz (örneğin, id'si 1 olan)
-        setBookInstance(response.data[0]);
-        // Benzer kitapları almak için farklı bir endpoint veya aynı verinin benzer kısımlarını kullanabilirsiniz.
-        setSimilarBooks(response.data.slice(1, 5)); // Örneğin ilk 5 benzer kitap
+        const response = await axios.get(`http://localhost:8080/MyLibrary/api/books/${id}`);
+        console.log("Single book data:", response.data);
+        setBookInstance(response.data);
+        const allBooksResponse = await axios.get('http://localhost:8080/MyLibrary/api/books');
+        const similar = allBooksResponse.data.filter(book => book.id !== parseInt(id)).slice(0, 4);
+        setSimilarBooks(similar);
+
       } catch (error) {
         console.error("Error fetching book data:", error);
       }
     };
 
     fetchBookData();
-  }, []);
+  }, [id]);
 
   if (!bookInstance) {
-    return <div>Loading...</div>; // Veri yüklenirken bir yükleniyor mesajı gösterelim
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="container mt-4">
       <div className="text-right mb-3">
-        <a href="/home" className="btn btn-success">Return to homepage</a>
+        <a href="/" className="btn btn-success">Return to homepage</a>
       </div>
       <div className="ana p-4">
         <div className="row">

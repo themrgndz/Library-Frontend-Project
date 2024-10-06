@@ -9,7 +9,7 @@ const SimilarBooks = ({ similarBooks }) => {
       {similarBooks.map(similarBook => (
         <div className="col-md-3 similar-books" key={similarBook.id}>
           <div className="book-cover-wrapper">
-            <a href={`/book/${similarBook.id}`}>
+            <a href={`/detail/${similarBook.id}`}>
               <img src={similarBook.image_url} alt={`${similarBook.title} Cover`} className="book-cover" />
             </a>
           </div>
