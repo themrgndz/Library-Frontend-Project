@@ -1,8 +1,13 @@
 import React from 'react'
+import BookMain from '../../components/Detail/BookMain/BookMain'
 
 const Detail = () => {
   return (
-    <div>Detail</div>
+    <>
+      <div className='Detail'>
+        <BookMain/>
+      </div>
+    </>
   )
 }
 
