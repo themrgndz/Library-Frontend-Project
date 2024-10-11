@@ -1,0 +1,72 @@
+body{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #EFEFEF;
+  }
+  .book-cover-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+  }
+  
+  .book-cover {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .book-cover-wrapper:hover .book-cover {
+    transform: scale(1.1);
+}
+  
+  .book-details {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .similar-books img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .ana {
+    border: solid;
+    border-color: #EFEFEF;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    position: relative;
+  }
+  
+  .ana::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    z-index: -1;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0)
+    );
+    filter: blur(20px);
+    border-radius: 50px;
+  }
+  
+  .stock-info {
+    font-size: 45px;
+    font-weight: bold;
+    color: #EFEFEF;
+  }
+  
+  .stock-label {
+    font-size: 40px;
+    font-weight: bold;
+  }
+  

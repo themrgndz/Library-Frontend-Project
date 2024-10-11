@@ -1,0 +1,17 @@
+.text-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.text-button:hover {
+  color: #f5a623;
+}
+
+.text-button:focus {
+  outline: none;
+}

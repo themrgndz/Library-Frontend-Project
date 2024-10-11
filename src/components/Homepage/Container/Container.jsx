@@ -1,93 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+// API çağrısını daha düzenli bir şekilde yapmak için fonksiyon
+const fetchBooksFromAPI = async () => {
+  const response = await fetch('http://localhost:8080/MyLibrary', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.status === 302) {
+    throw new Error('Sunucu bir yönlendirme yapmaya çalıştı, lütfen URL\'yi kontrol edin.');
+  }
+
+  if (!response.ok) {
+    throw new Error('Kitaplar yüklenirken bir hata oluştu: ' + response.statusText);
+  }
+
+  const data = await response.json();
+  return data;
+};
 
 const Container = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [stock, setStock] = useState(0);
-  const [message, setMessage] = useState('');
+  const [books, setBooks] = useState([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const bookData = {
-      title,
-      description,
-      imageUrl,
-      stock,
+  useEffect(() => {
+    const loadBooks = async () => {
+      try {
+        const data = await fetchBooksFromAPI();
+        setBooks(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    console.log('Book Data:', bookData);
+    loadBooks();
+  }, []);
 
-    try {
-      const response = await fetch('http://localhost:8080/MyLibrary/api/book', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setMessage(`Hata: ${errorData.error}`);
-        throw new Error('Ağ hatası');
-      }
-
-      const data = await response.json();
-      setMessage('Başarılı: Kitap başarıyla eklendi!');
-      console.log('Başarılı:', data);
-
-      setTitle('');
-      setDescription('');
-      setImageUrl('');
-      setStock(0);
-    } catch (error) {
-      console.error('Hata:', error);
-      setMessage('Kitap eklenirken bir hata oluştu.');
-    }
-  };
+  if (loading) {
+    return <p>Yükleniyor...</p>;
+  }
 
   return (
     <div>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Kitap Başlığı</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Açıklama</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <label>Resim URL'si</label>
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            required
-          />
-          <label>Stok</label>
-          <input
-            type="number"
-            value={stock}
-            onChange={(e) => setStock(Number(e.target.value))}
-            required
-          />
-        </div>
-        <button type="submit">Kitap Ekle</button>
-      </form>
+      <h2>Kitap Listesi</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Hata varsa kullanıcıya göster */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+        {books.map((book) => (
+          <div key={book.id} style={styles.card} className='bg-dark'>
+            <img src={book.imageUrl || 'default-image-url.jpg'} alt={book.title} style={styles.image} /> {/* Resim yoksa default resim */}
+            <h3>{book.title}</h3>
+            <p><strong>Açıklama:</strong> {book.description}</p>
+            <p><strong>Stok:</strong> {book.stock}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
+};
+
+const styles = {
+  card: {
+    border: '1px solid #ddd',
+    padding: '10px',
+    borderRadius: '5px',
+    width: '200px',
+    textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '150px',
+    objectFit: 'cover',
+  },
 };
 
 export default Container;
