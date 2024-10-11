@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-// API çağrısını daha düzenli bir şekilde yapmak için fonksiyon
 const fetchBooksFromAPI = async () => {
   const response = await fetch('http://localhost:8080/MyLibrary', {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   });
 
   if (response.status === 302) {
-    throw new Error('Sunucu bir yönlendirme yapmaya çalıştı, lütfen URL\'yi kontrol edin.');
+    throw new Error('Check URL');
   }
 
   if (!response.ok) {
@@ -47,11 +47,11 @@ const Container = () => {
   return (
     <div>
       <h2>Kitap Listesi</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Hata varsa kullanıcıya göster */}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {books.map((book) => (
           <div key={book.id} style={styles.card} className='bg-dark'>
-            <img src={book.imageUrl || 'default-image-url.jpg'} alt={book.title} style={styles.image} /> {/* Resim yoksa default resim */}
+            <img src={book.imageUrl || 'default-image-url.jpg'} alt={book.title} style={styles.image} />
             <h3>{book.title}</h3>
             <p><strong>Açıklama:</strong> {book.description}</p>
             <p><strong>Stok:</strong> {book.stock}</p>
