@@ -1,9 +1,13 @@
-body{
+.app-body{
   background-color: #212529;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   height: 100vh;
+}
+
+.homepage-container{
+  background-color: aliceblue;
 }
 
 .app {

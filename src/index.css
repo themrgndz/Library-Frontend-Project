@@ -33,11 +33,11 @@
   font-weight: bold;
 }
 
-.main {
-  background-color: rgb(0, 0, 0, 0.5);
+.main{
+  background-color: rgb(0, 0, 0, 0.7);
   padding-top: 10px;
   padding-bottom: 2%;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .card {

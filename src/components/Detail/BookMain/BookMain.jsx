@@ -15,10 +15,10 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/MyLibrary/api/books/${id}`);
+        const response = await axios.get(`http://localhost:8080/MyLibrary/detail/${id}`);
         console.log("Single book data:", response.data);
         setBookInstance(response.data);
-        const allBooksResponse = await axios.get('http://localhost:8080/MyLibrary/api/books');
+        const allBooksResponse = await axios.get('http://localhost:8080/MyLibrary/list');
         const similar = allBooksResponse.data.filter(book => book.id !== parseInt(id)).slice(0, 4);
         setSimilarBooks(similar);
 

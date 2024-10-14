@@ -43,7 +43,6 @@ const Container = () => {
 
   return (
     <div className="container main">
-      <h2>Kitap Listesi</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div className="row">
         {books.map((book) => (
