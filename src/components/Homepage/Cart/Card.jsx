@@ -1,22 +1,18 @@
-import React from 'react'; 
-import './Card.css';
+import React from 'react';
 
-const Card = ({ imageSrc, title, description, stock, buttonText, onCardClick }) => {
-  
-  const MAX_DESCRIPTION_LENGTH = 55;
-
-  const truncatedDescription = description.length > MAX_DESCRIPTION_LENGTH 
-    ? description.slice(0, MAX_DESCRIPTION_LENGTH) + '...' 
-    : description;
-
+const Card = ({ book }) => {
   return (
-    <div className="card bg-dark" onClick={onCardClick} style={{ cursor: 'pointer' }}>
-      <img src={imageSrc} alt={title} className="card-image" />
-      <div className="card-body">
-        <h2>{title}</h2>
-        <p>{truncatedDescription}</p>
-        <p><strong>Remaining stock:</strong> {stock}</p>
-      </div>
+    <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
+      <a href={`detail/${book.id}`} className="text-decoration-none">
+        <div className="card bg-dark text-light">
+          <img src={book.image_url} className="card-img-top" alt={book.title} />
+          <div className="card-body">
+            <h5 className="card-title text-light">{book.title}</h5>
+            <p className="card-text text-light">{book.description}</p>
+            <p className="card-text text-light">Remaining stock: {book.stock}</p>
+          </div>
+        </div>
+      </a>
     </div>
   );
 };
