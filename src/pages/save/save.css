@@ -1,0 +1,27 @@
+.save {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.post-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.post-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}

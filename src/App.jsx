@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from "./pages/Homepage/Homepage";
 import Profile from "./pages/Profile/Profile";
 import BookDetail from "./pages/Detail/Detail";
+import Save from "./pages/save/save";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/detail/:id" element={<BookDetail />} />
+          <Route path="/save" element={<Save />} />
         </Routes>
       </Router>
     </div>
