@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../Cart/Card';
+import './container.css'
 
 const fetchBooksFromAPI = async () => {
   const response = await fetch('http://localhost:8080/MyLibrary/list', {
@@ -22,6 +23,9 @@ const Container = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
   useEffect(() => {
     const loadBooks = async () => {
       try {
@@ -41,13 +45,53 @@ const Container = () => {
     return <p>Yükleniyor...</p>;
   }
 
+  const indexOfLastBook = currentPage * itemsPerPage;
+  const indexOfFirstBook = indexOfLastBook - itemsPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+
+  const totalPages = Math.ceil(books.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <div className="container main">
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
       <div className="row">
-        {books.map((book) => (
+        {currentBooks.map((book) => (
           <BookCard key={book.id} book={book} />
         ))}
+      </div>
+
+      {/* Sayfa geçiş butonları */}
+      <div className="pagination">
+        <button
+          className="pagination-button"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          Önceki
+        </button>
+        <span className="pagination-info">
+          Sayfa {currentPage} / {totalPages}
+        </span>
+        <button
+          className="pagination-button"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          Sonraki
+        </button>
       </div>
     </div>
   );
