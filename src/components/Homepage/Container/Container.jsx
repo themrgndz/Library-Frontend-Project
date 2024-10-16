@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../Cart/Card';
-import './container.css'
+import './container.css';
 
-const fetchBooksFromAPI = async () => {
-  const response = await fetch('http://localhost:8080/MyLibrary/list', {
+const fetchBooksFromAPI = async (searchTerm = '') => {
+  const url = searchTerm
+    ? `http://localhost:8080/MyLibrary/list?search=${encodeURIComponent(searchTerm)}`
+    : 'http://localhost:8080/MyLibrary/list';
+
+  const response = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -18,18 +22,17 @@ const fetchBooksFromAPI = async () => {
   return data;
 };
 
-const Container = () => {
+const Container = ({ searchResults }) => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   useEffect(() => {
     const loadBooks = async () => {
       try {
-        const data = await fetchBooksFromAPI();
+        const data = searchResults.length > 0 ? searchResults : await fetchBooksFromAPI();
         setBooks(data);
       } catch (error) {
         setError(error.message);
@@ -39,7 +42,7 @@ const Container = () => {
     };
 
     loadBooks();
-  }, []);
+  }, [searchResults]); // Arama sonuçları değiştiğinde yeniden yükleniyor
 
   if (loading) {
     return <p>Yükleniyor...</p>;

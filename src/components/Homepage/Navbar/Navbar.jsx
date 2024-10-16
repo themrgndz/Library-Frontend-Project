@@ -7,12 +7,14 @@ import './Navbar.css';
 const Navbar = ({ onSearch }) => {
   const navigate = useNavigate(); // useNavigate hook'u kullanılıyor
 
+  // Profil butonuna tıklandığında Profile sayfasına yönlendirme
   const handleProfileClick = () => {
-    navigate('/Profile'); // Profile sayfasına yönlendiriliyor
+    navigate('/Profile'); 
   };
 
+  // Logout butonuna tıklandığında anasayfaya yönlendirme
   const handleLogoutClick = () => {
-    navigate('/'); // Anasayfaya yönlendiriliyor
+    navigate('/'); 
   };
 
   return (
@@ -23,8 +25,9 @@ const Navbar = ({ onSearch }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <form className="d-flex ms-auto" role="search">
-            <SearchBar onSearch={onSearch} />
+          {/* SearchBar burada form yapısında kullanılıyor */}
+          <form className="d-flex ms-auto" role="search" onSubmit={(e) => e.preventDefault()}>
+            <SearchBar onSearch={onSearch} /> {/* SearchBar onSearch prop'u ile çağrılıyor */}
           </form>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
