@@ -3,21 +3,21 @@ import React from 'react';
 const App = () => {
   const handleButtonClick = async () => {
     const bookData = {
-      title: "Sample Book Title",
-      author: "Sample Author",
-      publisher: "Sample Publisher",
-      publication_year: 2023,
-      page_count: 300,
-      language: "English",
-      category: "Fiction",
-      isbn: "1234567890123",
-      stock: 10,
-      description: "Sample description",
-      image_url: "https://example.com/image.jpg"
+      "title": "Sample Book Title",
+      "author": "Sample Author",
+      "publisher": "Sample Publisher",
+      "publication_year": 2023,
+      "page_count": 300,
+      "language": "English",
+      "category": "Fiction",
+      "isbn": "978-1-23-129812-7",
+      "stock": 10,
+      "description": "Sample description",
+      "image_url": "https://example.com/image.jpg"
     };
 
     try {
-      const response = await fetch('http://localhost:8080/MyLibrary/api/save', {
+      const response = await fetch('http://localhost:8080/MyLibrary/api/books', {  // URL güncellendi
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const App = () => {
       if (response.ok) {
         console.log('Book data successfully posted!');
       } else {
-        console.log('Failed to post book data.');
+        console.log('Failed to post book data. Status:', response.status);  // Hata durumunda status kodunu göster
       }
     } catch (error) {
       console.error('Error:', error);

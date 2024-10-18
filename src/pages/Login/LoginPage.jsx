@@ -8,7 +8,7 @@ const Login = () => {
     event.preventDefault();
 
     // POST isteği ile Grails'e veri yolla
-    const response = await fetch('http://localhost:8080/api/login', {
+    const response = await fetch('http://localhost:8080/MyLibrary/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
