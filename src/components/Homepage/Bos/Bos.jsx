@@ -17,7 +17,7 @@ const App = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/MyLibrary/api/books', {  // URL güncellendi
+      const response = await fetch('https://localhost:5001/api/book', {  // URL güncellendi
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

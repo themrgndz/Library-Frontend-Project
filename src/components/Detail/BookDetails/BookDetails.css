@@ -1,0 +1,91 @@
+.row {
+  margin: 20px 0;
+}
+
+.col {
+  background-color: rgba(0, 0, 0, 0.1); /* Koyu arka plan rengi */
+  border-radius: 8px; /* Kenarları yuvarlama */
+  padding: 15px; /* İç boşluk */
+  color: #ffffff; /* Yazı rengi */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
+}
+
+p.book-details{
+  font-size: 20px;
+}
+
+.text-light {
+  color: #f8f9fa; /* Daha açık bir yazı rengi */
+}
+
+.book-details {
+  margin: 10px 0; /* Detaylar arasına boşluk */
+  font-size: 22px; /* Metin boyutu artırıldı */
+}
+
+.stock-label {
+  font-size: 1.5rem; /* Başlık boyutu */
+  margin-bottom: 10px; /* Aşağıda boşluk bırak */
+}
+
+.stock-info {
+  font-size: 8rem; /* Stok sayısı boyutu */
+  font-weight: bold; /* Kalın yazı */
+  color: rgb(255, 255, 255); /* Beyaz renk */
+}
+
+h2 {
+  color: #f8f9fa;
+  font-size: 2rem; /* Başlık boyutu */
+  margin-top: 20px; /* Üstte boşluk */
+}
+
+p {
+  line-height: 1.5; /* Satır yüksekliği */
+  font-size: 20px; /* Metin boyutu */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .col {
+    padding: 10px; /* Mobilde iç boşluğu azalt */
+  }
+
+  .stock-label {
+    font-size: 1.2rem; /* Mobilde başlık boyutunu azalt */
+  }
+
+  .stock-info {
+    font-size: 5rem; /* Mobilde stok sayısı boyutunu azalt */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Mobilde başlık boyutunu azalt */
+  }
+
+  .book-details {
+    font-size: 20px; /* Mobilde metin boyutunu ayarla */
+  }
+}
+
+@media (max-width: 480px) {
+  .col {
+    padding: 5px; /* Daha küçük ekranlar için iç boşluk */
+  }
+
+  .stock-label {
+    font-size: 1rem; /* Daha küçük ekranlarda başlık boyutunu azalt */
+  }
+
+  .stock-info {
+    font-size: 4rem; /* Daha küçük ekranlarda stok sayısı boyutunu azalt */
+  }
+
+  h2 {
+    font-size: 1.2rem; /* Daha küçük ekranlarda başlık boyutunu azalt */
+  }
+
+  .book-details {
+    font-size: 18px; /* Daha küçük ekranlarda metin boyutunu ayarla */
+  }
+}

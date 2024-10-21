@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const fetchBooks = async (searchTerm) => {
-  const url = `http://localhost:8080/MyLibrary/list?search=${encodeURIComponent(searchTerm)}`;
+  const url = `https://localhost:5001/api/book?search=${encodeURIComponent(searchTerm)}`;
 
   const response = await fetch(url, {
     method: 'GET',

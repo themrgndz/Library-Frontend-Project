@@ -1,4 +1,5 @@
 import React from 'react';
+import './BookDetails.css';
 
 const BookDetails = ({ bookInstance }) => {
 
@@ -9,10 +10,10 @@ const BookDetails = ({ bookInstance }) => {
   return (
     <div className="row align-items-center">
       <div className="col">
-        <p className="text-light">Author: <strong>{bookInstance.author}</strong></p>
+        <p className="book-details">Author: <strong>{bookInstance.author}</strong></p>
         <p className="book-details">Publisher: <strong>{bookInstance.publisher}</strong></p>
-        <p className="book-details">Publication Year: <strong>{bookInstance.publication_year}</strong></p>
-        <p className="book-details">Page Count: <strong>{bookInstance.page_count}</strong></p>
+        <p className="book-details">Publication Year: <strong>{bookInstance.publicationYear}</strong></p>
+        <p className="book-details">Page Count: <strong>{bookInstance.pageCount}</strong></p>
         <p className="book-details">Language: <strong>{bookInstance.language}</strong></p>
         <p className="book-details">Category: <strong>{bookInstance.category}</strong></p>
         <p className="book-details">ISBN: <strong>{bookInstance.isbn}</strong></p>

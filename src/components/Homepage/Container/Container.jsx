@@ -4,8 +4,8 @@ import './container.css';
 
 const fetchBooksFromAPI = async (searchTerm = '') => {
   const url = searchTerm
-    ? `http://localhost:8080/MyLibrary/list?search=${encodeURIComponent(searchTerm)}`
-    : 'http://localhost:8080/MyLibrary/list';
+    ? `https://localhost:5001/api/book?search=${encodeURIComponent(searchTerm)}`
+    : 'https://localhost:5001/api/book';
 
   const response = await fetch(url, {
     method: 'GET',

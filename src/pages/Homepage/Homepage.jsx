@@ -9,7 +9,7 @@ const Homepage = () => {
 
   const handleSearch = (searchTerm) => {
     // Arama işlemini gerçekleştirmek için fetchBooks fonksiyonunu kullanıyoruz
-    fetch(`http://localhost:8080/MyLibrary/list?search=${encodeURIComponent(searchTerm)}`)
+    fetch(`https://localhost:5001/api/book?search=${encodeURIComponent(searchTerm)}`)
       .then((response) => response.json())
       .then((data) => setSearchResults(data))
       .catch((error) => console.error('Error fetching search results:', error));
