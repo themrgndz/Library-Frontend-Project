@@ -13,7 +13,7 @@ const Homepage = () => {
     setLoading(true); // Arama yapıldığında yükleniyor durumunu başlat
     setError(null); // Hata durumunu sıfırla
 
-    fetch(`http://localhost:5000/api/book?search=${encodeURIComponent(searchTerm)}`)
+    fetch(`https://localhost:5001/api/book`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

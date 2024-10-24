@@ -2,7 +2,7 @@
   "name": "library",
   "private": true,
   "version": "0.0.0",
-  "proxy": "http://localhost:5001",
+  "proxy": "https://localhost:5001/api/book",
   "type": "module",
   "scripts": {
     "dev": "vite",
