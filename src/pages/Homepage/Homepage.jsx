@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Container from '../../components/Homepage/Container/Container';
 import Footer from '../../components/Homepage/Footbar/Footer';
 import Navbar from '../../components/Homepage/Navbar/Navbar';
-import Tester from '../../components/Homepage/Tester/Tester';
 import './Homepage.css';
 
 const Homepage = () => {
@@ -41,9 +40,6 @@ const Homepage = () => {
         {loading && <p>Yükleniyor...</p>} {/* Yükleniyor mesajı */}
         {error && <p className="error">{error}</p>} {/* Hata mesajı */}
         <Container searchResults={searchResults} /> {/* Arama sonuçları Container'a geçildi */}
-      </div>
-      <div>
-        <Tester />
       </div>
       <div className="footer-container">
         <Footer />

@@ -3,17 +3,17 @@ import React from 'react';
 const App = () => {
   const handleButtonClick = async () => {
     const bookData = {
-      "title": "Sample Book Title",
-      "author": "Sample Author",
-      "publisher": "Sample Publisher",
-      "publication_year": 2023,
-      "page_count": 300,
-      "language": "English",
-      "category": "Fiction",
-      "isbn": "978-1-23-129812-7",
-      "stock": 10,
-      "description": "Sample description",
-      "image_url": "https://example.com/image.jpg"
+      "Title": "Sample Book Title",
+      "Author": "Sample Author",
+      "Publisher": "Sample Publisher",
+      "PublicationYear": 2023,
+      "PageCount": 300,
+      "Language": "English",
+      "Category": "Fiction",
+      "Isbn": "9781231298139",
+      "Stock": 10,
+      "Description": "Sample description",
+      "ImageUrl": "https://example.com/image.jpg"
     };
 
     try {
