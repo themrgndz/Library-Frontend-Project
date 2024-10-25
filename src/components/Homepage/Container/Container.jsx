@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../Cart/Card';
-import './container.css';
+import '../Container/container.css';
 
 const fetchBooksFromAPI = async (searchTerm = '') => {
   const url = searchTerm

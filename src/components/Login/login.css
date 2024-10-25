@@ -1,0 +1,112 @@
+.login-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1689951838345-0b6e5d77f47d?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 450px;
+}
+
+.login-box {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px; 
+    border-radius: 15px; 
+    max-width: 750px; 
+    width: 100%;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.7); 
+    text-align: center;
+}
+
+h2 {
+    color: #ffffff;
+    margin-bottom: 30px; /* Başlık altında daha fazla boşluk */
+    font-size: 2rem; /* Başlığı daha büyük yapıyoruz */
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Form elemanları arasındaki boşluğu arttırıyoruz */
+    text-align: left;
+}
+
+label {
+    color: #ffffff;
+    font-size: 1.2rem; /* Label'ları büyütüyoruz */
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1); /* Şeffaf beyaz arka plan */
+    color: #ffffff;
+    border: none;
+    padding: 15px; /* Input kutularını büyütüyoruz */
+    font-size: 1rem; /* Yazı boyutunu büyütüyoruz */
+    border-radius: 5px;
+}
+
+.form-control::placeholder {
+    color: #bdbdbd;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 15px 20px; /* Butonu büyütüyoruz */
+    width: 100%; /* Buton tam genişlikte */
+    font-size: 1.2rem; /* Buton yazı boyutu */
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* Geçiş efekti */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Hover durumu için renk değişimi */
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem; /* Linklerin yazı boyutu */
+    margin: 10px 0; /* Linkler arası boşluk */
+    display: block; /* Linkleri blok olarak gösteriyoruz */
+}
+
+a:hover {
+    text-decoration: underline; /* Hover durumunda altı çizili */
+}
+
+@media (max-width: 576px) {
+    .login-box {
+        padding: 30px; /* Küçük ekranlarda padding'i azaltıyoruz */
+        max-width: 95%; /* Genişliği %95 yapıyoruz */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Küçük ekranlarda başlık boyutunu azaltıyoruz */
+    }
+
+    label {
+        font-size: 1rem; /* Küçük ekranlarda label boyutunu azaltıyoruz */
+    }
+
+    .form-control {
+        padding: 10px; /* Küçük ekranlarda input padding'i azaltıyoruz */
+    }
+
+    .btn-primary {
+        padding: 10px; /* Küçük ekranlarda buton padding'ini azaltıyoruz */
+        font-size: 1rem; /* Küçük ekranlarda buton yazı boyutunu azaltıyoruz */
+    }
+}
