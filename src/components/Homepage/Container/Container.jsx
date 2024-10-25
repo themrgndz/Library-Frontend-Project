@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../Cart/Card';
-import '../Container/container.css';
 
 const fetchBooksFromAPI = async (searchTerm = '') => {
   const url = searchTerm
@@ -42,7 +41,7 @@ const Container = ({ searchResults }) => {
     };
 
     loadBooks();
-  }, [searchResults]); // Arama sonuçları değiştiğinde yeniden yükleniyor
+  }, [searchResults]);
 
   if (loading) {
     return <p>Yükleniyor...</p>;
@@ -96,6 +95,46 @@ const Container = ({ searchResults }) => {
           Sonraki
         </button>
       </div>
+
+      <style jsx>{`
+        /* Pagination Container */
+        .pagination {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+          gap: 10px;
+        }
+
+        /* Pagination Buttons */
+        .pagination-button {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s;
+        }
+
+        /* Pagination Button Hover Effect */
+        .pagination-button:hover {
+          background-color: #0056b3;
+        }
+
+        /* Disabled Pagination Buttons */
+        .pagination-button:disabled {
+          background-color: rgb(25, 25, 25);
+          cursor: not-allowed;
+        }
+
+        /* Page Info Text */
+        .pagination-info {
+          font-size: 16px;
+          font-weight: bold;
+        }
+      `}</style>
     </div>
   );
 };
