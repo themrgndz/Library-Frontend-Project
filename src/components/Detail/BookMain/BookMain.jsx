@@ -20,8 +20,16 @@ const BookDetail = () => {
         setBookInstance(response.data);
         
         const allBooksResponse = await axios.get('https://localhost:5001/api/book');
-        const similar = allBooksResponse.data.filter(book => book.id !== parseInt(id)).slice(0, 4);
-        setSimilarBooks(similar);
+        
+        // Filtrelenen kitaplardan rastgele 4 tanesini seç
+        const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
+        const randomBooks = [];
+        while (randomBooks.length < 4 && filteredBooks.length > 0) {
+          const randomIndex = Math.floor(Math.random() * filteredBooks.length);
+          randomBooks.push(filteredBooks.splice(randomIndex, 1)[0]);
+        }
+
+        setSimilarBooks(randomBooks);
       } catch (error) {
         console.error("Error fetching book data:", error);
       }

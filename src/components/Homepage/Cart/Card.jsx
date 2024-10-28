@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ book }) => {
   return (
     <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-      <a href={`detail/${book.id}`} className="text-decoration-none">
+      <a href={`detail/${book.bookId}`} className="text-decoration-none">
         <div className="card bg-dark text-light">
           <img src={book.imageUrl} className="card-img-top" alt={book.title} />
           <div className="card-body">
