@@ -41,6 +41,12 @@ const Container = () => {
     loadBooks();
   }, []);
 
+  const handleRetry = () => {
+    setError('');
+    setCurrentPage(1); // Hata olduğunda sayfayı sıfırlamak isteyebilirsiniz
+    loadBooks(); // Yeniden yükleme yapın
+  };
+
   if (loading) {
     return <p>Yükleniyor...</p>;
   }
@@ -65,11 +71,16 @@ const Container = () => {
 
   return (
     <div className="container main">
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && (
+        <div>
+          <p style={{ color: 'red' }}>{error}</p>
+          <button onClick={handleRetry}>Yeniden Dene</button>
+        </div>
+      )}
 
       <div className="row">
         {currentBooks.map((book) => (
-          <BookCard key={book.Id} book={book} />
+          <BookCard key={book.id} book={book} /> 
         ))}
       </div>
 
