@@ -1,19 +1,20 @@
-import React from 'react'; // React import ediliyor
-import { useNavigate } from 'react-router-dom'; // React Router'dan useNavigate hook'u import ediliyor
+import React from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../../AuthContext'; // AuthContext'i içe aktar
 import Button from '../Button/Button';
 import './Navbar.css';
 
 const Navbar = () => {
-  const navigate = useNavigate(); // useNavigate hook'u kullanılıyor
+  const navigate = useNavigate();
+  const { logout } = useAuth(); // AuthContext'ten logout fonksiyonunu al
 
-  // Profil butonuna tıklandığında Profile sayfasına yönlendirme
   const handleProfileClick = () => {
     navigate('/Profile'); 
   };
 
-  // Logout butonuna tıklandığında anasayfaya yönlendirme
   const handleLogoutClick = () => {
-    navigate('/'); 
+    logout(); // Çıkış yap
+    navigate('/'); // Giriş sayfasına yönlendir
   };
 
   return (

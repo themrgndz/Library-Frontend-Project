@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; // Çerez kütüphanesini içe aktar
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // useNavigate'yi içe aktar
 import './Login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // useNavigate kancasını oluştur
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -25,6 +25,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Giriş başarılı:', data);
+        Cookies.set('token', data.token, { expires: 1 }); // 1 gün süreli
         navigate('/homepage');
       } else if (response.status === 401) {
         setError('Geçersiz kullanıcı adı veya şifre.');
