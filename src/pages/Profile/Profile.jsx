@@ -11,7 +11,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="container text-light">
+    <div className='Profile'>
+      <div className="container text-light">
       <div className="profile-container bg-dark">
         <h2 className="text-center">Profile</h2>
 
@@ -30,11 +31,12 @@ const Profile = () => {
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
 
-          <a href="./" className="btn btn-outline-success my-2">
+          <a href="./homepage" className="btn btn-outline-success my-2">
             Return to Homepage
           </a>
         </div>
       </div>
+    </div>
     </div>
   );
 };

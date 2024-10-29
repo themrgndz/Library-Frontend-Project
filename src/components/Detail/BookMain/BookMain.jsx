@@ -21,7 +21,6 @@ const BookDetail = () => {
         
         const allBooksResponse = await axios.get('https://localhost:5001/api/book');
         
-        // Filtrelenen kitaplardan rastgele 4 tanesini seç
         const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
         const randomBooks = [];
         while (randomBooks.length < 4 && filteredBooks.length > 0) {
@@ -73,7 +72,7 @@ const BookDetail = () => {
   return (
     <div className="container mt-4">
       <div className="text-right mb-3">
-        <a href="/" className="btn btn-success">Return to homepage</a>
+        <a href="/homepage" className="btn btn-success">Return to homepage</a>
       </div>
       <div className="ana p-4">
         <div className="row">
