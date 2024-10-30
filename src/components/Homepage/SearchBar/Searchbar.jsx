@@ -45,18 +45,15 @@ const SearchBar = ({ onSearch }) => {
   }, [searchTerm]);
 
   return (
-    <div className="d-flex">
+    <div className="d-flex align-items-center">
       <input
         type="search"
-        className="form-control me-2 bg-light"
-        placeholder="Kitap ara..."
+        className="form-control me-2 rounded-pill border-0 shadow-sm"
+        placeholder="Search..."
         aria-label="Search"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button className="btn btn-outline-success" onClick={() => onSearch(searchTerm)}>
-        Ara
-      </button>
     </div>
   );
 };
