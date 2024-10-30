@@ -37,7 +37,6 @@ const Homepage = () => {
         <Navbar onSearch={handleSearch} /> {/* onSearch fonksiyonu Navbar'a geçildi */}
       </div>
       <div className="content">
-        {loading && <p>Yükleniyor...</p>} {/* Yükleniyor mesajı */}
         {error && <p className="error">{error}</p>} {/* Hata mesajı */}
         <Container searchResults={searchResults} /> {/* Arama sonuçları Container'a geçildi */}
       </div>

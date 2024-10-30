@@ -1,4 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Debounce fonksiyonu
+const debounce = (func, delay) => {
+  let timeoutId;
+  return (...args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+};
 
 const fetchBooks = async (searchTerm) => {
   const url = `https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`;
@@ -21,16 +34,15 @@ const fetchBooks = async (searchTerm) => {
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Searchbar.jsx
-const handleSearch = (e) => {
-  e.preventDefault(); // Form gönderimini engelle
-  const term = searchTerm.trim(); // Arama terimini al
-  if (term) {
-    onSearch(term); // onSearch ile arama terimini gönder
-  } else {
-    alert('Lütfen bir arama terimi girin.'); // Uyarı ver
-  }
-};
+  const debounceSearch = debounce((term) => {
+    if (term) {
+      onSearch(term);
+    }
+  }, 300);
+
+  useEffect(() => {
+    debounceSearch(searchTerm);
+  }, [searchTerm]);
 
   return (
     <div className="d-flex">
@@ -42,7 +54,7 @@ const handleSearch = (e) => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button className="btn btn-outline-success" onClick={handleSearch}>
+      <button className="btn btn-outline-success" onClick={() => onSearch(searchTerm)}>
         Ara
       </button>
     </div>
