@@ -72,7 +72,7 @@ const BookDetail = () => {
   return (
     <div className="container mt-4">
       <div className="text-right mb-3">
-        <a href="/homepage" className="btn btn-success">Return to homepage</a>
+        <a href="/" className="btn btn-success">Return to homepage</a>
       </div>
       <div className="ana p-4">
         <div className="row">

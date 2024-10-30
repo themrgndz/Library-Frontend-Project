@@ -10,12 +10,12 @@ const BookDetails = ({ bookInstance }) => {
   return (
     <div className="row align-items-center">
       <div className="col">
-        <p className="book-details">Author: <strong>{bookInstance.authorName}</strong></p>
-        <p className="book-details">Publisher: <strong>{bookInstance.publisherName}</strong></p>
+        <p className="book-details">Author: <strong>{bookInstance.author}</strong></p>
+        <p className="book-details">Publisher: <strong>{bookInstance.publisher}</strong></p>
         <p className="book-details">Publication Year: <strong>{bookInstance.publicationYear}</strong></p>
         <p className="book-details">Page Count: <strong>{bookInstance.pageCount}</strong></p>
         <p className="book-details">Language: <strong>{bookInstance.language}</strong></p>
-        <p className="book-details">Category: <strong>{bookInstance.categoryName}</strong></p>
+        <p className="book-details">Category: <strong>{bookInstance.category}</strong></p>
         <p className="book-details">ISBN: <strong>{bookInstance.isbn}</strong></p>
       </div>
       <div className="col">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import Container from '../../components/Homepage/Container/Container';
 import Footer from '../../components/Homepage/Footbar/Footer';
 import Navbar from '../../components/Homepage/Navbar/Navbar';
@@ -10,10 +10,10 @@ const Homepage = () => {
   const [error, setError] = useState(null); // Hata durumu
 
   const handleSearch = (searchTerm) => {
-    setLoading(true); // Arama yapıldığında yükleniyor durumunu başlat
+    setLoading(true); // Yükleniyor durumunu başlat
     setError(null); // Hata durumunu sıfırla
 
-    fetch(`https://localhost:5001/api/book`)
+    fetch(`https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`) // Doğru URL oluştur
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

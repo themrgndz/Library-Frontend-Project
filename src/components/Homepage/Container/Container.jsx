@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import BookCard from '../Cart/Card';
 
-const fetchBooksFromAPI = async () => {
-  const url = 'https://localhost:5001/api/book';
+const fetchBooksFromAPI = async (searchTerm = '') => {
+  const url = searchTerm
+  ? `https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`
+  : 'https://localhost:5001/api/book';
 
   const response = await fetch(url, {
     method: 'GET',
@@ -19,7 +21,7 @@ const fetchBooksFromAPI = async () => {
   return data;
 };
 
-const Container = () => {
+const Container = ({ searchResults }) => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -29,7 +31,7 @@ const Container = () => {
   useEffect(() => {
     const loadBooks = async () => {
       try {
-        const data = await fetchBooksFromAPI();
+        const data = searchResults.length > 0 ? searchResults : await fetchBooksFromAPI();
         setBooks(data);
       } catch (error) {
         setError(error.message);
@@ -37,15 +39,9 @@ const Container = () => {
         setLoading(false);
       }
     };
-
+  
     loadBooks();
-  }, []);
-
-  const handleRetry = () => {
-    setError('');
-    setCurrentPage(1); // Hata olduğunda sayfayı sıfırlamak isteyebilirsiniz
-    loadBooks(); // Yeniden yükleme yapın
-  };
+  }, [searchResults]);
 
   if (loading) {
     return <p>Yükleniyor...</p>;
@@ -71,19 +67,15 @@ const Container = () => {
 
   return (
     <div className="container main">
-      {error && (
-        <div>
-          <p style={{ color: 'red' }}>{error}</p>
-          <button onClick={handleRetry}>Yeniden Dene</button>
-        </div>
-      )}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <div className="row">
         {currentBooks.map((book) => (
-          <BookCard key={book.id} book={book} /> 
+          <BookCard key={book.bookId} book={book} />
         ))}
       </div>
 
+      {/* Sayfa geçiş butonları */}
       <div className="pagination">
         <button
           className="pagination-button"
@@ -105,6 +97,7 @@ const Container = () => {
       </div>
 
       <style jsx>{`
+        /* Pagination Container */
         .pagination {
           display: flex;
           justify-content: center;
@@ -113,6 +106,7 @@ const Container = () => {
           gap: 10px;
         }
 
+        /* Pagination Buttons */
         .pagination-button {
           background-color: #007bff;
           color: white;
@@ -124,15 +118,18 @@ const Container = () => {
           transition: background-color 0.3s;
         }
 
+        /* Pagination Button Hover Effect */
         .pagination-button:hover {
           background-color: #0056b3;
         }
 
+        /* Disabled Pagination Buttons */
         .pagination-button:disabled {
           background-color: rgb(25, 25, 25);
           cursor: not-allowed;
         }
 
+        /* Page Info Text */
         .pagination-info {
           font-size: 16px;
           font-weight: bold;

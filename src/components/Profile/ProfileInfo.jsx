@@ -1,16 +1,12 @@
 import React from 'react';
 
-const ProfileInfo = ({ userInfo }) => {
+const ProfileInfo = () => {
   return (
     <div id="profileInfo" className="profile-info">
-      {userInfo ? (
-        <>
-          <p><strong>Username:</strong> <span id="username">{userInfo.username}</span></p>
-          <p><strong>E-Mail:</strong> <span id="email">{userInfo.email}</span></p>
-        </>
-      ) : (
-        <p>Kullanıcı bilgileri yükleniyor...</p>
-      )}
+      <p><strong>Name:</strong> <span id="firstName">Ahmet</span></p>
+      <p><strong>Surname:</strong> <span id="lastName">Yılmaz</span></p>
+      <p><strong>Username:</strong> <span id="username">ahmet_yilmaz</span></p>
+      <p><strong>E-Mail:</strong> <span id="email">ahmet.yilmaz@example.com</span></p>
     </div>
   );
 };

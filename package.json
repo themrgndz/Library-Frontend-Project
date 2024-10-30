@@ -2,7 +2,7 @@
   "name": "library",
   "private": true,
   "version": "0.0.0",
-  "proxy": "https://localhost:5001/api/book",
+  "proxy": "https://localhost:5001",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,6 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
-    "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
