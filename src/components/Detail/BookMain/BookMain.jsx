@@ -46,7 +46,6 @@ const BookDetail = () => {
       await axios.post(`https://localhost:5001/api/favorites`, {
         bookId: bookInstance.id,
       });
-      alert(`${bookInstance.title} favorilerinize eklendi!`);
     } catch (error) {
       console.error("Error adding to favorites:", error);
       alert("Favorilere ekleme sırasında bir hata oluştu.");
@@ -58,7 +57,6 @@ const BookDetail = () => {
       await axios.post(`https://localhost:5001/api/borrow`, {
         bookId: bookInstance.id,
       });
-      alert(`${bookInstance.title} başarıyla ödünç alındı!`);
     } catch (error) {
       console.error("Error borrowing book:", error);
       alert("Kitabı ödünç alma sırasında bir hata oluştu.");
@@ -70,7 +68,6 @@ const BookDetail = () => {
     if (confirmDelete) {
       try {
         await axios.delete(`https://localhost:5001/api/book/${id}`);
-        alert(`${bookInstance.title} başarıyla silindi!`);
         navigate('/');
       } catch (error) {
         console.error("Error deleting book:", error);
@@ -87,7 +84,6 @@ const BookDetail = () => {
     try {
       await axios.put(`https://localhost:5001/api/book/${id}`, editedBook);
       setBookInstance(editedBook);
-      alert(`${editedBook.title} başarıyla güncellendi!`);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating book:", error);
