@@ -59,7 +59,7 @@ const Navbar = ({ onSearch }) => {
       } else {
         const responseData = await response.json();
         console.error('Response:', responseData);
-        alert(`Failed to add book: ${responseData.message || 'Unknown error'}`);
+        alert(`Failed to add book: ${responseData.message || 'Check to form'}`);
       }
     } catch (error) {
       console.error('Error:', error);
