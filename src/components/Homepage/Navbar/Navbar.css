@@ -1,8 +1,36 @@
+/* Navbar.css */
 .navbar {
   position: relative;
   top: 0;
   width: 100%;
   max-height: 50px;
+}
+
+.book-cover {
+  max-width: 475px;
+  max-height: 760px;
+}
+
+.book-details {
+  font-size: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-details p {
+  margin-bottom: 0.5rem;
+  font-size: 15px;
+}
+
+.modal .form-control {
+  font-size: 10px;
+  padding: 5px 10px;
+}
+
+textarea.form-control {
+  resize: vertical;
+  max-height: 100px;
 }
 
 .navbar-title {
@@ -20,8 +48,7 @@
   padding: 10px;
   border-radius: 15px;
   width: 100%;
-  width: 300px;
-  max-width: 300px;
+  max-width: 500px;
   margin-right: 10px;
   max-height: 40px;
 }
@@ -47,4 +74,14 @@
   .navbar-nav .nav-item {
     margin-bottom: 5px;
   }
+}
+/* Modal backdrop için şeffaf siyah arka plan */
+.modal.fade.show {
+  background-color: rgba(0, 0, 0, 0.8); /* Siyah ve %80 şeffaflık */
+}
+
+/* Modal içeriği */
+.modal-content {
+  background-color: #212529; /* İçerik için koyu arka plan */
+  color: white;
 }
