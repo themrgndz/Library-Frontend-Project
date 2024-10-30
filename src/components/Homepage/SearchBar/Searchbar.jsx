@@ -13,30 +13,14 @@ const debounce = (func, delay) => {
   };
 };
 
-const fetchBooks = async (searchTerm) => {
-  const url = `https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`;
-
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error('Network response was not ok: ' + response.statusText);
-  }
-
-  const data = await response.json();
-  return data;
-};
-
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const debounceSearch = debounce((term) => {
     if (term) {
       onSearch(term);
+    } else {
+      onSearch('');
     }
   }, 300);
 
