@@ -4,6 +4,7 @@ import axios from 'axios';
 import BookCover from '../BookCover/BookCover';
 import BookDetails from '../BookDetails/BookDetails';
 import SimilarBooks from '../SimilarBooks/SimilarBooks';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./style.css";
 
@@ -14,6 +15,9 @@ const BookDetail = () => {
   const [similarBooks, setSimilarBooks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBook, setEditedBook] = useState({});
+  const [showModal, setShowModal] = useState(false); 
+  const [selectedUser, setSelectedUser] = useState('');
+  const [dueDate, setDueDate] = useState('');
 
   useEffect(() => {
     const fetchBookData = async () => {
@@ -41,11 +45,18 @@ const BookDetail = () => {
     fetchBookData();
   }, [id]);
 
-  const handleBorrowBook = async () => {
+  const handleBorrowBook = () => {
+    setShowModal(true); 
+  };
+
+  const handleConfirmBorrow = async () => {
     try {
       await axios.post(`https://localhost:5001/api/borrow`, {
         bookId: bookInstance.id,
+        userId: selectedUser,
+        dueDate: dueDate,
       });
+      setShowModal(false);
     } catch (error) {
       console.error("Error borrowing book:", error);
       alert("Kitabı ödünç alma sırasında bir hata oluştu.");
@@ -71,8 +82,6 @@ const BookDetail = () => {
 
   const handleSaveChanges = async () => {
     try {
-      console.log("Data being sent in PUT request:", editedBook); // PUT isteği ile gönderilen veriyi logluyoruz
-  
       await axios.put(`https://localhost:5001/api/book/${id}`, editedBook);
       setBookInstance(editedBook);
       setIsEditing(false);
@@ -108,7 +117,7 @@ const BookDetail = () => {
           <div className="col-md-4">
             <BookCover imageUrl={bookInstance.imageUrl} title={bookInstance.title} />
             <button 
-              className="btn btn-outline-success mt-2 w-100" 
+              className="btn btn-outline-success w-100 mt-2" 
               onClick={handleBorrowBook}
             >
               Borrow
@@ -236,6 +245,49 @@ const BookDetail = () => {
           </div>
         </div>
         <SimilarBooks similarBooks={similarBooks} />
+      </div>
+
+      <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog" aria-labelledby="borrowModalLabel" aria-hidden={!showModal}>
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="borrowModalLabel">Borrow Book</h5>
+              <button type="button" className="close" onClick={() => setShowModal(false)} aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="form-group">
+                <label htmlFor="userSelect">Select User</label>
+                <select
+                  id="userSelect"
+                  className="form-control"
+                  value={selectedUser}
+                  onChange={(e) => setSelectedUser(e.target.value)}
+                >
+                  <option value="">Select a user</option>
+                  <option value="1">User 1</option>
+                  <option value="2">User 2</option>
+                  <option value="3">User 3</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="dueDate">Due Date</label>
+                <input
+                  type="date"
+                  id="dueDate"
+                  className="form-control"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
+              <button type="button" className="btn btn-primary" onClick={handleConfirmBorrow}>Confirm Borrow</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

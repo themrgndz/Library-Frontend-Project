@@ -1,87 +1,45 @@
 /* Navbar.css */
-.navbar {
-  position: relative;
-  top: 0;
-  width: 100%;
-  max-height: 50px;
+
+.Navbar .modal-content {
+  background-color: #343a40;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.book-cover {
-  max-width: 475px;
-  max-height: 760px;
+.Navbar .modal-header {
+  border-bottom: 1px solid #495057;
 }
 
-.book-details {
-  font-size: 14px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.Navbar .modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.book-details p {
-  margin-bottom: 0.5rem;
-  font-size: 15px;
+.Navbar .book-cover {
+  max-width: 150px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.modal .form-control {
-  font-size: 10px;
-  padding: 5px 10px;
+.Navbar .book-details .form-label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #ffffff;
 }
 
-textarea.form-control {
-  resize: vertical;
-  max-height: 100px;
+.Navbar .modal-footer {
+  justify-content: flex-end;
 }
 
-.navbar-title {
-  font-size: 24px;
+.Navbar .btn-close {
+  background-color: transparent;
+  border: none;
 }
 
-.search-bar {
-  display: flex;
-  align-items: center;
+.Navbar .btn-close-white {
+  filter: invert(1);
 }
 
-.search-bar input {
-  background: #212529;
-  border: 1px solid #5e5e5e;
-  padding: 10px;
-  border-radius: 15px;
-  width: 100%;
-  max-width: 500px;
-  margin-right: 10px;
-  max-height: 40px;
-}
-
-.search-bar button {
-  padding: 3px 20px;
-  background: none;
-  border-radius: 15px;
-  border-color: #198754;
-  color: rgb(200, 200, 200);
-}
-
-@media (max-width: 768px) {
-  .search-bar {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-  }
-
-  .navbar-nav .nav-item {
-    margin-bottom: 5px;
-  }
-}
-/* Modal backdrop için şeffaf siyah arka plan */
-.modal.fade.show {
-  background-color: rgba(0, 0, 0, 0.8); /* Siyah ve %80 şeffaflık */
-}
-
-/* Modal içeriği */
-.modal-content {
-  background-color: #212529; /* İçerik için koyu arka plan */
-  color: white;
+.Navbar .modal-backdrop {
+  background-color: rgba(0, 0, 0, 1);
 }

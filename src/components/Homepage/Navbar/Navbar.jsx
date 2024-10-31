@@ -8,7 +8,7 @@ const Navbar = ({ onSearch }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
-    imageUrl: 'https://marketplace.canva.com/EAFKTWp2UfQ/1/0/1003w/canva-mavi-renkli-yalnızlık-temalı-kitap-kapağı-YpytBongs-w.jpg',
+    imageUrl: 'https://marketplace.canva.com/EAF7F9-yBas/1/0/1003w/canva-gri-tonları-ve-turuncu-karanlık-gaz-lambası-fotoğrafı-kitap-kapağı-FNig_YUbce4.jpg',
     author: '',
     publisher: '',
     publicationYear: '',
@@ -59,7 +59,7 @@ const Navbar = ({ onSearch }) => {
       } else {
         const responseData = await response.json();
         console.error('Response:', responseData);
-        alert(`Failed to add book: ${responseData.message || 'Check to form'}`);
+        alert(`Failed to add book: ${responseData.message || 'Check the form'}`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -89,35 +89,42 @@ const Navbar = ({ onSearch }) => {
       </nav>
 
       <div className={`modal fade ${isModalOpen ? 'show' : ''}`} style={{ display: isModalOpen ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="modalTitle" aria-hidden={!isModalOpen}>
-        <div className="modal-dialog modal-xl">
+        <div className="modal-dialog modal-lg">
           <div className="modal-content bg-dark text-white">
             <div className="modal-header">
               <h5 className="modal-title" id="modalTitle">Add New Book</h5>
-              <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
+              <button type="button" className="btn-close btn-close-white" onClick={handleCloseModal} aria-label="Close"></button>
             </div>
             <div className="modal-body d-flex">
-              <img src={formData.imageUrl} alt="Book Cover" className="book-cover img-fluid my-auto" />
+              <img src={formData.imageUrl} alt="Book Cover" className="book-cover img-fluid my-auto" style={{ height: '100%', width: 'auto', maxWidth: '60%' }} /> 
               
-              <div className="book-details ms-4">
-                <p>Title: <input type="text" name="title" value={formData.title} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>imageURL: <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Author: <input type="text" name="author" value={formData.author} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Publisher: <input type="text" name="publisher" value={formData.publisher} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Publication Year: <input type="text" name="publicationYear" value={formData.publicationYear} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Page Count: <input type="text" name="pageCount" value={formData.pageCount} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Language: <input type="text" name="language" value={formData.language} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Category: <input type="text" name="category" value={formData.category} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>ISBN: <input type="text" name="isbn" value={formData.isbn} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Stock: <input type="text" name="stock" value={formData.stock} onChange={handleInputChange} className="form-control mb-2" /></p>
-                <p>Description: <textarea name="description" value={formData.description} onChange={handleInputChange} className="form-control mb-2" /></p>
+              <div className="book-details ms-4" style={{ flex: 1 }}>
+                {Object.keys(formData).map((key) => (
+                  key !== 'imageUrl' && (
+                    <div className="mb-2" key={key}>
+                      <label className="form-label">{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
+                      {key === 'description' ? (
+                        <textarea name={key} value={formData[key]} onChange={handleInputChange} className="form-control form-control-sm" />
+                      ) : (
+                        <input type="text" name={key} value={formData[key]} onChange={handleInputChange} className="form-control form-control-sm" />
+                      )}
+                    </div>
+                  )
+                ))}
+                <div className="mb-2">
+                  <label className="form-label">Image URL:</label>
+                  <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleInputChange} className="form-control form-control-sm" />
+                </div>
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-success" onClick={handleSubmit}>Add Book</button>
+              <button type="button" className="btn btn-success btn-sm" onClick={handleSubmit}>Add Book</button>
             </div>
           </div>
         </div>
       </div>
+
+      {isModalOpen && <div className="modal-backdrop fade show"></div>} 
     </>
   );
 };
