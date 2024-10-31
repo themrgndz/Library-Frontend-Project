@@ -41,17 +41,6 @@ const BookDetail = () => {
     fetchBookData();
   }, [id]);
 
-  const handleAddToFavorites = async () => {
-    try {
-      await axios.post(`https://localhost:5001/api/favorites`, {
-        bookId: bookInstance.id,
-      });
-    } catch (error) {
-      console.error("Error adding to favorites:", error);
-      alert("Favorilere ekleme sırasında bir hata oluştu.");
-    }
-  };
-
   const handleBorrowBook = async () => {
     try {
       await axios.post(`https://localhost:5001/api/borrow`, {
@@ -82,18 +71,27 @@ const BookDetail = () => {
 
   const handleSaveChanges = async () => {
     try {
+      console.log("Data being sent in PUT request:", editedBook); // PUT isteği ile gönderilen veriyi logluyoruz
+  
       await axios.put(`https://localhost:5001/api/book/${id}`, editedBook);
       setBookInstance(editedBook);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating book:", error);
-      alert("Kitabı güncelleme sırasında bir hata oluştu.");
+      alert("An error occurred while updating the book.");
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedBook(prevState => ({ ...prevState, [name]: value }));
+
+    setEditedBook(prevState => ({
+      ...prevState,
+      [name]: 
+        name === "pageCount" || name === "publicationYear" || name === "stock" 
+          ? parseInt(value, 10)
+          : value
+    }));
   };
 
   if (!bookInstance) {
@@ -104,44 +102,40 @@ const BookDetail = () => {
     <div className="container mt-4">
       <div className="text-right mb-3">
         <a href="/" className="btn btn-success">Return to homepage</a>
-        {isEditing ? (
-          <>
-            <button className="btn btn-success ml-2" onClick={handleSaveChanges}>Save Changes</button>
-            <button className="btn btn-secondary ml-2" onClick={() => setIsEditing(false)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            <button 
-              className="btn btn-primary ml-2" 
-              onClick={handleEditBook}
-            >
-              Edit Book
-            </button>
-            <button 
-              className="btn btn-danger ml-2" 
-              onClick={handleDeleteBook}
-            >
-              Throw To Trash
-            </button>
-          </>
-        )}
       </div>
       <div className="ana p-4">
         <div className="row">
           <div className="col-md-4">
             <BookCover imageUrl={bookInstance.imageUrl} title={bookInstance.title} />
             <button 
-              className="btn btn-outline-warning mt-3 w-100" 
-              onClick={handleAddToFavorites}
-            >
-              Favorite
-            </button>
-            <button 
               className="btn btn-outline-success mt-2 w-100" 
               onClick={handleBorrowBook}
             >
               Borrow
             </button>
+            <div>
+              {isEditing ? (
+                <>
+                  <button className="btn btn-success w-100 mt-2" onClick={handleSaveChanges}>Save Changes</button>
+                  <button className="btn btn-secondary w-100 mt-2" onClick={() => setIsEditing(false)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    className="btn btn-outline-primary w-100 mt-2" 
+                    onClick={handleEditBook}
+                  >
+                    Edit Book
+                  </button>
+                  <button 
+                    className="btn btn-outline-danger w-100 mt-2" 
+                    onClick={handleDeleteBook}
+                  >
+                    Throw To Trash
+                  </button>
+                </>
+              )}
+            </div>
           </div>
           <div className="col-md-8">
             <h2>{bookInstance.title}</h2>
