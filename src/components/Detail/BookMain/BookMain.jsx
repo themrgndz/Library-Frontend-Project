@@ -5,7 +5,6 @@ import BookCover from '../BookCover/BookCover';
 import BookDetails from '../BookDetails/BookDetails';
 import SimilarBooks from '../SimilarBooks/SimilarBooks';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import "./style.css";
 
 const BookDetail = () => {
@@ -15,51 +14,64 @@ const BookDetail = () => {
   const [similarBooks, setSimilarBooks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBook, setEditedBook] = useState({});
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const fetchBookData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`https://localhost:5001/api/book/${id}`);
-        console.log("Single book data:", response.data);
-        setBookInstance(response.data);
-        setEditedBook(response.data);
-        
+        // Fetch book data
+        const bookResponse = await axios.get(`https://localhost:5001/api/book/${id}`);
+        setBookInstance(bookResponse.data);
+        setEditedBook(bookResponse.data);
+
+        // Fetch all books to get similar ones
         const allBooksResponse = await axios.get('https://localhost:5001/api/book');
-        
         const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
         const randomBooks = [];
         while (randomBooks.length < 4 && filteredBooks.length > 0) {
           const randomIndex = Math.floor(Math.random() * filteredBooks.length);
           randomBooks.push(filteredBooks.splice(randomIndex, 1)[0]);
         }
-
         setSimilarBooks(randomBooks);
       } catch (error) {
         console.error("Error fetching book data:", error);
       }
+
+      try {
+        // Fetch users
+        const userResponse = await axios.get('https://localhost:5001/api/user');
+        setUsers(userResponse.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     };
 
-    fetchBookData();
+    fetchData();
   }, [id]);
 
   const handleBorrowBook = () => {
-    setShowModal(true); 
+    setShowModal(true);
   };
 
   const handleConfirmBorrow = async () => {
     try {
-      await axios.post(`https://localhost:5001/api/borrow`, {
-        bookId: bookInstance.id,
-        userId: selectedUser,
-        dueDate: dueDate,
+      // Kullanıcı seçimi için kullanıcının ID'sini gönderiyoruz
+      const response = await axios.post(`https://localhost:5001/api/borrow`, {
+        UserId: selectedUser,
+        BookId: bookInstance.id,
+        BorrowDate: new Date().toISOString(),
+        DueDate: dueDate,
       });
+      console.log(response.data);
+      alert("Book borrowed successfully!");
       setShowModal(false);
     } catch (error) {
       console.error("Error borrowing book:", error);
-      alert("Kitabı ödünç alma sırasında bir hata oluştu.");
+      alert("An error occurred while borrowing the book.");
     }
   };
 
@@ -71,7 +83,7 @@ const BookDetail = () => {
         navigate('/');
       } catch (error) {
         console.error("Error deleting book:", error);
-        alert("Kitabı silme sırasında bir hata oluştu.");
+        alert("An error occurred while deleting the book.");
       }
     }
   };
@@ -93,7 +105,6 @@ const BookDetail = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setEditedBook(prevState => ({
       ...prevState,
       [name]: 
@@ -102,6 +113,10 @@ const BookDetail = () => {
           : value
     }));
   };
+
+  const filteredUsers = users.filter(user => 
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   if (!bookInstance) {
     return <div>Loading...</div>;
@@ -150,89 +165,20 @@ const BookDetail = () => {
             <h2>{bookInstance.title}</h2>
             {isEditing ? (
               <div>
-                <input 
-                  type="text" 
-                  name="title" 
-                  value={editedBook.title} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Title"
-                />
-                <input 
-                  type="text" 
-                  name="author" 
-                  value={editedBook.author} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Author"
-                />
-                <input 
-                  type="text" 
-                  name="publisher" 
-                  value={editedBook.publisher} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Publisher"
-                />
-                <input 
-                  type="number" 
-                  name="publicationYear" 
-                  value={editedBook.publicationYear} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Publication Year"
-                />
-                <input 
-                  type="number" 
-                  name="pageCount" 
-                  value={editedBook.pageCount} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Page Count"
-                />
-                <input 
-                  type="text" 
-                  name="isbn" 
-                  value={editedBook.isbn} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="ISBN"
-                />
-                <input 
-                  type="text" 
-                  name="category" 
-                  value={editedBook.category} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Category"
-                />
-                <input 
-                  type="text" 
-                  name="language" 
-                  value={editedBook.language} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Language"
-                />
-                <input 
-                  type="number" 
-                  name="stock" 
-                  value={editedBook.stock} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Stock"
-                />
-                <input 
-                  type="text" 
-                  name="imageUrl" 
-                  value={editedBook.imageUrl} 
-                  onChange={handleInputChange} 
-                  className="form-control mb-2"
-                  placeholder="Image URL"
-                />
+                {['title', 'author', 'publisher', 'publicationYear', 'pageCount', 'isbn', 'category', 'language', 'stock', 'imageUrl'].map((field, index) => (
+                  <input 
+                    key={index}
+                    type={field === 'publicationYear' || field === 'pageCount' || field === 'stock' ? "number" : "text"}
+                    name={field} 
+                    value={editedBook[field] || ''} 
+                    onChange={handleInputChange} 
+                    className="form-control mb-2"
+                    placeholder={field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
+                  />
+                ))}
                 <textarea 
                   name="description" 
-                  value={editedBook.description} 
+                  value={editedBook.description || ''} 
                   onChange={handleInputChange} 
                   className="form-control mb-2"
                   rows="5"
@@ -252,33 +198,42 @@ const BookDetail = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="borrowModalLabel">Borrow Book</h5>
-              <button type="button" className="close" onClick={() => setShowModal(false)} aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <button type="button" className="close" onClick={() => setShowModal(false)}>
+                <span>&times;</span>
               </button>
             </div>
             <div className="modal-body">
               <div className="form-group">
+                <label htmlFor="searchUser">Search User</label>
+                <input 
+                  type="text" 
+                  id="searchUser" 
+                  className="form-control mb-2" 
+                  placeholder="Search for a user..." 
+                  value={searchQuery} 
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
                 <label htmlFor="userSelect">Select User</label>
-                <select
-                  id="userSelect"
-                  className="form-control"
-                  value={selectedUser}
+                <select 
+                  id="userSelect" 
+                  className="form-control" 
+                  value={selectedUser} 
                   onChange={(e) => setSelectedUser(e.target.value)}
                 >
                   <option value="">Select a user</option>
-                  <option value="1">User 1</option>
-                  <option value="2">User 2</option>
-                  <option value="3">User 3</option>
+                  {filteredUsers.map(user => (
+                    <option key={user.id} value={user.id}>{user.username}</option>
+                  ))}
                 </select>
               </div>
               <div className="form-group">
                 <label htmlFor="dueDate">Due Date</label>
-                <input
-                  type="date"
-                  id="dueDate"
-                  className="form-control"
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
+                <input 
+                  type="date" 
+                  id="dueDate" 
+                  className="form-control" 
+                  value={dueDate} 
+                  onChange={(e) => setDueDate(e.target.value)} 
                 />
               </div>
             </div>
