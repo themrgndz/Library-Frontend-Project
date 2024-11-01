@@ -5,15 +5,14 @@ import Navbar from '../../components/Homepage/Navbar/Navbar';
 import './Homepage.css';
 
 const Homepage = () => {
-  const [searchResults, setSearchResults] = useState([]); // Arama sonuçlarını state'de tutuyoruz
-  const [loading, setLoading] = useState(false); // Yükleniyor durumu
-  const [error, setError] = useState(null); // Hata durumu
-
+  const [searchResults, setSearchResults] = useState([]); 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const handleSearch = (searchTerm) => {
-    setLoading(true); // Yükleniyor durumunu başlat
-    setError(null); // Hata durumunu sıfırla
+    setLoading(true); 
+    setError(null);
 
-    fetch(`https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`) // Doğru URL oluştur
+    fetch(`https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -22,23 +21,23 @@ const Homepage = () => {
       })
       .then((data) => {
         setSearchResults(data);
-        setLoading(false); // Yükleniyor durumunu kapat
+        setLoading(false); 
       })
       .catch((error) => {
         console.error('Error fetching search results:', error);
-        setError('Arama sonuçları alınırken bir hata oluştu.'); // Hata mesajı ayarla
-        setLoading(false); // Yükleniyor durumunu kapat
+        setError('Arama sonuçları alınırken bir hata oluştu.');
+        setLoading(false);
       });
   };
 
   return (
     <div className="Homepage">
       <div>
-        <Navbar onSearch={handleSearch} /> {/* onSearch fonksiyonu Navbar'a geçildi */}
+        <Navbar onSearch={handleSearch} />
       </div>
       <div className="content">
-        {error && <p className="error">{error}</p>} {/* Hata mesajı */}
-        <Container searchResults={searchResults} /> {/* Arama sonuçları Container'a geçildi */}
+        {error && <p className="error">{error}</p>}
+        <Container searchResults={searchResults} />
       </div>
       <div className="footer-container">
         <Footer />
