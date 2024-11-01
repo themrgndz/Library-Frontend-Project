@@ -14,21 +14,14 @@ const BookDetail = () => {
   const [similarBooks, setSimilarBooks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBook, setEditedBook] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch book data
         const bookResponse = await axios.get(`https://localhost:5001/api/book/${id}`);
         setBookInstance(bookResponse.data);
         setEditedBook(bookResponse.data);
 
-        // Fetch all books to get similar ones
         const allBooksResponse = await axios.get('https://localhost:5001/api/book');
         const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
         const randomBooks = [];
@@ -38,42 +31,12 @@ const BookDetail = () => {
         }
         setSimilarBooks(randomBooks);
       } catch (error) {
-        console.error("Error fetching book data:", error);
-      }
-
-      try {
-        // Fetch users
-        const userResponse = await axios.get('https://localhost:5001/api/user');
-        setUsers(userResponse.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, [id]);
-
-  const handleBorrowBook = () => {
-    setShowModal(true);
-  };
-
-  const handleConfirmBorrow = async () => {
-    try {
-      // Kullanıcı seçimi için kullanıcının ID'sini gönderiyoruz
-      const response = await axios.post(`https://localhost:5001/api/borrow`, {
-        UserId: selectedUser,
-        BookId: bookInstance.id,
-        BorrowDate: new Date().toISOString(),
-        DueDate: dueDate,
-      });
-      console.log(response.data);
-      alert("Book borrowed successfully!");
-      setShowModal(false);
-    } catch (error) {
-      console.error("Error borrowing book:", error);
-      alert("An error occurred while borrowing the book.");
-    }
-  };
 
   const handleDeleteBook = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this book?");
@@ -114,10 +77,6 @@ const BookDetail = () => {
     }));
   };
 
-  const filteredUsers = users.filter(user => 
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   if (!bookInstance) {
     return <div>Loading...</div>;
   }
@@ -131,12 +90,6 @@ const BookDetail = () => {
         <div className="row">
           <div className="col-md-4">
             <BookCover imageUrl={bookInstance.imageUrl} title={bookInstance.title} />
-            <button 
-              className="btn btn-outline-success w-100 mt-2" 
-              onClick={handleBorrowBook}
-            >
-              Borrow
-            </button>
             <div>
               {isEditing ? (
                 <>
@@ -191,58 +144,6 @@ const BookDetail = () => {
           </div>
         </div>
         <SimilarBooks similarBooks={similarBooks} />
-      </div>
-
-      <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }} tabIndex="-1" role="dialog" aria-labelledby="borrowModalLabel" aria-hidden={!showModal}>
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="borrowModalLabel">Borrow Book</h5>
-              <button type="button" className="close" onClick={() => setShowModal(false)}>
-                <span>&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label htmlFor="searchUser">Search User</label>
-                <input 
-                  type="text" 
-                  id="searchUser" 
-                  className="form-control mb-2" 
-                  placeholder="Search for a user..." 
-                  value={searchQuery} 
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <label htmlFor="userSelect">Select User</label>
-                <select 
-                  id="userSelect" 
-                  className="form-control" 
-                  value={selectedUser} 
-                  onChange={(e) => setSelectedUser(e.target.value)}
-                >
-                  <option value="">Select a user</option>
-                  {filteredUsers.map(user => (
-                    <option key={user.id} value={user.id}>{user.username}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="dueDate">Due Date</label>
-                <input 
-                  type="date" 
-                  id="dueDate" 
-                  className="form-control" 
-                  value={dueDate} 
-                  onChange={(e) => setDueDate(e.target.value)} 
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-              <button type="button" className="btn btn-primary" onClick={handleConfirmBorrow}>Confirm Borrow</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

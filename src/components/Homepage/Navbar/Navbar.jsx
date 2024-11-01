@@ -1,11 +1,10 @@
-// Navbar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from '../SearchBar/Searchbar';
 import Button from '../Button/Button';
 import './Navbar.css';
 
 const Navbar = ({ onSearch }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     imageUrl: 'https://marketplace.canva.com/EAF7F9-yBas/1/0/1003w/canva-gri-tonları-ve-turuncu-karanlık-gaz-lambası-fotoğrafı-kitap-kapağı-FNig_YUbce4.jpg',
@@ -20,12 +19,28 @@ const Navbar = ({ onSearch }) => {
     description: ''
   });
 
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const booksResponse = await fetch('https://localhost:5001/api/books');
+        const booksData = await booksResponse.json();
+        setBooks(booksData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleAddBookClick = () => {
-    setIsModalOpen(true);
+    setIsAddBookModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseAddBookModal = () => {
+    setIsAddBookModalOpen(false);
   };
 
   const handleInputChange = (e) => {
@@ -38,10 +53,10 @@ const Navbar = ({ onSearch }) => {
   const handleSubmit = async () => {
     const dataToSubmit = {
       ...formData,
-      publicationYear: parseInt(formData.publicationYear), 
+      publicationYear: parseInt(formData.publicationYear),
       pageCount: parseInt(formData.pageCount),
-      stock: parseInt(formData.stock), 
-      isbn: formData.isbn 
+      stock: parseInt(formData.stock),
+      isbn: formData.isbn
     };
 
     console.log("Data to submit:", dataToSubmit);
@@ -55,7 +70,7 @@ const Navbar = ({ onSearch }) => {
 
       if (response.ok) {
         alert('Book added successfully!');
-        handleCloseModal();
+        handleCloseAddBookModal();
       } else {
         const responseData = await response.json();
         console.error('Response:', responseData);
@@ -88,16 +103,16 @@ const Navbar = ({ onSearch }) => {
         </div>
       </nav>
 
-      <div className={`modal fade ${isModalOpen ? 'show' : ''}`} style={{ display: isModalOpen ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="modalTitle" aria-hidden={!isModalOpen}>
+      {/* Add Book Modal */}
+      <div className={`modal fade ${isAddBookModalOpen ? 'show' : ''}`} style={{ display: isAddBookModalOpen ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="addBookModalTitle" aria-hidden={!isAddBookModalOpen}>
         <div className="modal-dialog modal-lg">
           <div className="modal-content bg-dark text-white">
             <div className="modal-header">
-              <h5 className="modal-title" id="modalTitle">Add New Book</h5>
-              <button type="button" className="btn-close btn-close-white" onClick={handleCloseModal} aria-label="Close"></button>
+              <h5 className="modal-title" id="addBookModalTitle">Add New Book</h5>
+              <button type="button" className="btn-close btn-close-white" onClick={handleCloseAddBookModal} aria-label="Close"></button>
             </div>
             <div className="modal-body d-flex">
-              <img src={formData.imageUrl} alt="Book Cover" className="book-cover img-fluid my-auto" style={{ height: '100%', width: 'auto', maxWidth: '60%' }} /> 
-              
+              <img src={formData.imageUrl} alt="Book Cover" className="book-cover img-fluid my-auto" style={{ height: '100%', width: 'auto', maxWidth: '60%' }} />
               <div className="book-details ms-4" style={{ flex: 1 }}>
                 {Object.keys(formData).map((key) => (
                   key !== 'imageUrl' && (
@@ -124,7 +139,7 @@ const Navbar = ({ onSearch }) => {
         </div>
       </div>
 
-      {isModalOpen && <div className="modal-backdrop fade show"></div>} 
+      {isAddBookModalOpen && <div className="modal-backdrop fade show"></div>}
     </>
   );
 };
