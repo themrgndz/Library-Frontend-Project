@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Yeni ekleme
 
 const BorrowMain = ({ bookId }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [book, setBook] = useState(null);
+    const navigate = useNavigate(); // useNavigate'i başlatıyoruz
 
-    // Fetch users based on search term
     useEffect(() => {
         const fetchUsers = async () => {
             if (searchTerm) {
@@ -29,7 +30,6 @@ const BorrowMain = ({ bookId }) => {
         return () => clearTimeout(debounceTimeout);
     }, [searchTerm]);
 
-    // Fetch book details
     useEffect(() => {
         const fetchBook = async () => {
             if (bookId) {
@@ -49,80 +49,92 @@ const BorrowMain = ({ bookId }) => {
         setSelectedUser(user);
     };
 
+    const updateBookStock = async (bookId, amount) => {
+        try {
+            const response = await axios.post(`https://localhost:5001/api/book/updateStock`, {
+                bookId: bookId,
+                amount: amount,
+            });
+            console.log("Stok güncellemesi başarılı:", response.data);
+        } catch (error) {
+            console.error("Stok güncelleme hatası:", error);
+        }
+    };
+
     const handleConfirmBorrow = async () => {
         if (selectedUser) {
             const borrowData = {
                 userId: selectedUser.userId,
-                bookId: parseInt(bookId, 10), // bookId'yi tam sayıya çevir
-                borrowDate: new Date().toISOString().split('T')[0], // Güncel tarih
-                dueDate: new Date(new Date().setDate(new Date().getDate() + 14)).toISOString().split('T')[0], // 14 gün sonra
+                bookId: parseInt(bookId, 10), 
+                borrowDate: new Date().toISOString().split('T')[0], 
+                dueDate: new Date(new Date().setDate(new Date().getDate() + 14)).toISOString().split('T')[0], 
                 returned: false
             };
-    
-            // POST isteğinden önce veriyi logla
-            console.log("Gönderilecek Ödünç Verisi:", borrowData);
-            console.log("Seçilen Kullanıcı ID:", selectedUser.userId);
-            console.log("Dönüştürülmüş Book ID:", borrowData.bookId);
-    
+
             try {
                 const response = await axios.post('https://localhost:5001/api/borrow', borrowData);
                 console.log("Ödünç alma isteği başarılı:", response.data);
-                // Başarı durumunu yönet (örneğin, kullanıcıyı bilgilendirme, durumu sıfırlama vb.)
+
+                await updateBookStock(bookId, -1); // Stok sayısını azalt
+
+                // İşlem başarılı olduğunda anasayfaya yönlendir
+                navigate('/'); // Anasayfaya yönlendirme
             } catch (error) {
-                if (error.response) {
-                    console.error("Ödünç alma onaylama hatası:", error.response.data);
-                } else {
-                    console.error("Ödünç alma onaylama hatası:", error.message);
-                }
+                console.error("Ödünç alma onaylama hatası:", error.response ? error.response.data : error.message);
             }
         } else {
-            console.error("Ödünç almak için seçilen kullanıcı yok.");
+            console.error("Ödünç almak için kullanıcı seçin.");
         }
     };
-    
-    
 
     return (
-        <div style={styles.container}>
-            <div style={styles.bookDetails}>
-                {book && (
-                    <>
-                        <h2>Book Details</h2>
-                        <p><strong>Title:</strong> {book.title}</p>
-                        <p><strong>Author:</strong> {book.author}</p>
-                        <p><strong>ISBN:</strong> {book.isbn}</p>
-                    </>
-                )}
-            </div>
-            <div style={styles.searchSection}>
-                <label htmlFor="search" style={styles.label}>Search User</label>
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Enter username"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={styles.input}
-                />
-                <ul style={styles.userList}>
-                    {users.map((user) => (
-                        <li key={user.userId} style={styles.userItem} onClick={() => handleUserClick(user)}>
-                            {user.username} ({user.email})
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            {selectedUser && (
-                <div style={styles.userDetails}>
-                    <h2>User Details</h2>
-                    <p><strong>Username:</strong> {selectedUser.username}</p>
-                    <p><strong>Email:</strong> {selectedUser.email}</p>
-                    <p><strong>User ID:</strong> {selectedUser.userId}</p>
+        <div className='BorrowContainer'>
+            <div style={styles.container}>
+                <div style={styles.bookDetails}>
+                    {book && (
+                        <>
+                            <h2>Book Details</h2>
+                            <p><strong>Title:</strong> {book.title}</p>
+                            <p><strong>Author:</strong> {book.author}</p>
+                            <p><strong>ISBN:</strong> {book.isbn}</p>
+                            <p><strong>Stock:</strong> {book.stock}</p>
+                        </>
+                    )}
                 </div>
-            )}
-            <button onClick={handleConfirmBorrow} style={styles.confirmButton}>
-                Confirm Borrow
-            </button>
+                <div style={styles.searchSection}>
+                    <label htmlFor="search" style={styles.label}>Search User</label>
+                    <input
+                        type="text"
+                        id="search"
+                        placeholder="Enter username"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={styles.input}
+                    />
+                    <ul style={styles.userList}>
+                        {users.map((user) => (
+                            <li 
+                                key={user.userId} 
+                                style={user.userId === (selectedUser && selectedUser.userId) ? styles.selectedUserItem : styles.userItem}
+                                onClick={() => handleUserClick(user)}
+                            >
+                                {user.username} ({user.email})
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                {selectedUser && (
+                    <div style={styles.userDetails}>
+                        <h2>User Details</h2>
+                        <p><strong>Username:</strong> {selectedUser.username}</p>
+                        <p><strong>Email:</strong> {selectedUser.email}</p>
+                        <p><strong>User ID:</strong> {selectedUser.userId}</p>
+                    </div>
+                )}
+                <button onClick={handleConfirmBorrow} style={styles.confirmButton}>
+                    Confirm Borrow
+                </button>
+            </div>
         </div>
     );
 };
@@ -130,7 +142,7 @@ const BorrowMain = ({ bookId }) => {
 const styles = {
     container: {
         display: 'flex',
-        flexDirection: 'column', // Change to column layout
+        flexDirection: 'column',
         height: '100vh',
         padding: '20px',
     },
@@ -166,6 +178,15 @@ const styles = {
         padding: '10px',
         borderBottom: '1px solid #ccc',
         cursor: 'pointer',
+    },
+    selectedUserItem: {
+        padding: '10px',
+        borderBottom: '1px solid #ccc',
+        cursor: 'pointer',
+        backgroundColor: '#f0f8ff',
+        color: '#007bff',
+        fontWeight: 'bold',
+        borderRadius: '4px',
     },
     userDetails: {
         border: '1px solid #ccc',
