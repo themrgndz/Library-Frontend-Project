@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// Debounce fonksiyonu
 const debounce = (func, delay) => {
   let timeoutId;
   return (...args) => {

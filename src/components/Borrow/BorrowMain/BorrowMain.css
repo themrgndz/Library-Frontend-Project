@@ -1,0 +1,8 @@
+.borrow-container {
+    height: 100vh; /* Yükseklik ayarı */
+    display: flex; /* Flexbox kullanımı */
+    justify-content: center; /* Ortalamak için */
+    align-items: center; /* Ortalamak için */
+    background: rgba(0, 0, 0, 0.8); /* Yarı saydam beyaz arka plan */
+    backdrop-filter: blur(10px); /* Bulanık arka plan efekti */
+  }

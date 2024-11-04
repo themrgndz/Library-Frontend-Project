@@ -77,6 +77,10 @@ const BookDetail = () => {
     }));
   };
 
+  const handleBorrowBook = () => {
+    navigate(`/borrow/${id}`);
+  };
+
   if (!bookInstance) {
     return <div>Loading...</div>;
   }
@@ -109,6 +113,12 @@ const BookDetail = () => {
                     onClick={handleDeleteBook}
                   >
                     Throw To Trash
+                  </button>
+                  <button 
+                    className="btn btn-outline-success w-100 mt-2" 
+                    onClick={handleBorrowBook}
+                  >
+                    Borrow Book
                   </button>
                 </>
               )}
