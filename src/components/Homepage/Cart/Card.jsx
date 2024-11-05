@@ -14,8 +14,8 @@ const Card = ({ book }) => {
           <img src={book.imageUrl} className="card-img-top" alt={book.title} />
           <div className="card-body">
             <h5 className="card-title">{book.title}</h5>
-            <p className="card-text"><strong>Stok Durumu:</strong> {book.stock}</p>
-            <p className="card-text"><strong>Açıklama:</strong> {truncatedDescription}</p>
+            <p className="card-text"><strong>Stock Status:</strong> {book.stock}</p>
+            <p className="card-text"><strong>Description:</strong> {truncatedDescription}</p>
           </div>
         </div>
       </a>

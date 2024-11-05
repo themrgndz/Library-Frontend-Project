@@ -3,8 +3,8 @@ import BookCard from '../Cart/Card';
 
 const fetchBooksFromAPI = async (searchTerm = '') => {
   const url = searchTerm
-  ? `https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`
-  : 'https://localhost:5001/api/book';
+    ? `https://localhost:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`
+    : 'https://localhost:5001/api/book';
 
   const response = await fetch(url, {
     method: 'GET',
@@ -14,7 +14,7 @@ const fetchBooksFromAPI = async (searchTerm = '') => {
   });
 
   if (!response.ok) {
-    throw new Error('Kitaplar yüklenirken bir hata oluştu: ' + response.statusText);
+    throw new Error('An error occurred while loading books: ' + response.statusText);
   }
 
   const data = await response.json();
@@ -39,12 +39,12 @@ const Container = ({ searchResults }) => {
         setLoading(false);
       }
     };
-  
+
     loadBooks();
   }, [searchResults]);
 
   if (loading) {
-    return <p>Yükleniyor...</p>;
+    return <p>Loading...</p>;
   }
 
   const indexOfLastBook = currentPage * itemsPerPage;
@@ -75,24 +75,24 @@ const Container = ({ searchResults }) => {
         ))}
       </div>
 
-      {/* Sayfa geçiş butonları */}
+      {/* Pagination buttons */}
       <div className="pagination">
         <button
           className="pagination-button"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
         >
-          Önceki
+          Previous
         </button>
         <span className="pagination-info">
-          Sayfa {currentPage} / {totalPages}
+          Page {currentPage} / {totalPages}
         </span>
         <button
           className="pagination-button"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
         >
-          Sonraki
+          Next
         </button>
       </div>
 
