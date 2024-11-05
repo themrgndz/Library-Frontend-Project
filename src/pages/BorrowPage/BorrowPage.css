@@ -1,0 +1,8 @@
+.PageBorrow .Borrow {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+.PageBorrow .container {
+    flex: 1; 
+  }

@@ -82,6 +82,10 @@ const Navbar = ({ onSearch }) => {
     }
   };
 
+  const handleBorrowClick = () => {
+    window.location.href = 'http://localhost:3030/borrow';
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
@@ -97,6 +101,9 @@ const Navbar = ({ onSearch }) => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <Button text="Add Book" onClick={handleAddBookClick} />
+              </li>
+              <li className="nav-item">
+                <Button text="Borrow" onClick={handleBorrowClick} />
               </li>
             </ul>
           </div>

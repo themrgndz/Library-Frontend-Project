@@ -1,0 +1,52 @@
+/* Navbar.css */
+.Navbar {
+  position: fixed; /* Navbar'ı sayfanın en üstünde sabitler */
+  top: 0; /* Sayfanın en üst kısmına yerleştirir */
+  left: 0; /* Sayfanın en sol kısmına yerleştirir */
+  width: 100%; /* Genişliği tam sayfa yapar */
+  z-index: 1000; /* Sayfanın diğer elemanlarının önünde görünmesi için yüksek bir değer */
+}
+
+.Navbar .modal-content {
+  background-color: #343a40;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.Navbar .modal-header {
+  border-bottom: 1px solid #495057;
+}
+
+.Navbar .modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.Navbar .book-cover {
+  max-width: 150px;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Navbar .book-details .form-label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: #ffffff;
+}
+
+.Navbar .modal-footer {
+  justify-content: flex-end;
+}
+
+.Navbar .btn-close {
+  background-color: transparent;
+  border: none;
+}
+
+.Navbar .btn-close-white {
+  filter: invert(1);
+}
+
+.Navbar .modal-backdrop {
+  background-color: rgba(0, 0, 0, 1);
+}

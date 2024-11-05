@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Homepage from "./pages/Homepage/Homepage";
 import BookDetail from "./pages/Detail/Detail";
-import Borrow from "./pages/Borrow/Borrow"
+import BorrowPage from "./pages/BorrowPage/BorrowPage"
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/detail/:id" element={<BookDetail />} />
-          <Route path="/borrow/:bookId" element={<Borrow/>}/>
+          <Route path="/borrow" element={<BorrowPage/>}/>
         </Routes>
       </Router>
     </div>
