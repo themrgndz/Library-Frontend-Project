@@ -5,6 +5,8 @@ import ReactPaginate from 'react-paginate';
 const BorrowList = ({ borrowList, selectedUserId, currentBorrowPage, borrowsPerPage, handleBorrowPageChange, handleDeleteBorrow, handleUpdateBorrow }) => {
   const [editMode, setEditMode] = useState(null);
   const [editedBorrow, setEditedBorrow] = useState({ borrowDate: '', dueDate: '' });
+  const [newBorrow, setNewBorrow] = useState({ bookId: '', borrowDate: '', dueDate: '' });
+  const [showAddBorrowForm, setShowAddBorrowForm] = useState(false);
 
   const startEditing = (borrow) => {
     setEditMode(borrow.borrowId);
@@ -26,6 +28,43 @@ const BorrowList = ({ borrowList, selectedUserId, currentBorrowPage, borrowsPerP
     setEditMode(null);
   };
 
+  const handleAddNewBorrow = async () => {
+    const borrowData = {
+      userId: parseInt(selectedUserId),
+      bookId: parseInt(newBorrow.bookId),
+      borrowDate: newBorrow.borrowDate, 
+      dueDate: newBorrow.dueDate,       
+      returned: false,
+    };
+    console.log('Selected User ID:', selectedUserId);
+    console.log('------------------------------------')
+    console.log('Type of Selected User ID:', typeof selectedUserId);
+    console.log('------------------------------------')
+    console.log('Sending POST request with data:', borrowData);
+  
+    try {
+      const response = await fetch('https://localhost:5001/api/borrow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(borrowData),
+      });
+  
+      const responseData = await response.json();
+      console.log('Response from server:', responseData);
+  
+      if (response.ok) {
+        setNewBorrow({ bookId: '', borrowDate: '', dueDate: '' });
+        setShowAddBorrowForm(false);
+      } else {
+        console.error('Error adding borrow:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding borrow:', error);
+    }
+  };
+  
   const indexOfLastBorrow = (currentBorrowPage + 1) * borrowsPerPage;
   const indexOfFirstBorrow = indexOfLastBorrow - borrowsPerPage;
   const currentBorrows = borrowList.slice(indexOfFirstBorrow, indexOfLastBorrow);
@@ -34,6 +73,41 @@ const BorrowList = ({ borrowList, selectedUserId, currentBorrowPage, borrowsPerP
     <div className="col-md-8">
       <div>
         <h3>{selectedUserId ? `Borrow List for User ID ${selectedUserId}` : 'Select a user to see borrow list'}</h3>
+
+        {selectedUserId && (
+          <>
+            <button className="btn btn-primary mb-2" onClick={() => setShowAddBorrowForm(!showAddBorrowForm)}>
+              {showAddBorrowForm ? 'Cancel' : 'Add Borrow'}
+            </button>
+            {showAddBorrowForm && (
+              <div className="mb-3">
+                <input
+                  type="text"
+                  placeholder="Book ID"
+                  value={newBorrow.bookId}
+                  onChange={(e) => setNewBorrow({ ...newBorrow, bookId: e.target.value })}
+                  className="form-control mb-2"
+                />
+                <input
+                  type="date"
+                  value={newBorrow.borrowDate}
+                  onChange={(e) => setNewBorrow({ ...newBorrow, borrowDate: e.target.value })}
+                  className="form-control mb-2"
+                />
+                <input
+                  type="date"
+                  value={newBorrow.dueDate}
+                  onChange={(e) => setNewBorrow({ ...newBorrow, dueDate: e.target.value })}
+                  className="form-control mb-2"
+                />
+                <button className="btn btn-success" onClick={handleAddNewBorrow}>
+                  Add Borrow
+                </button>
+              </div>
+            )}
+          </>
+        )}
+
         <table className="table table-striped mt-3">
           <thead>
             <tr>
