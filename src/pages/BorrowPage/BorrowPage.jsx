@@ -14,11 +14,11 @@ const BorrowPage = () => {
             <BorrowNavbar />
           </nav>
           {/*-------------------------------------------------------------------------------------*/}
-          <div className='container'>
+          <div className='container panel'>
             <BorrowPanel />
           </div>
           {/*-------------------------------------------------------------------------------------*/}
-          <footer className="footer-container">
+          <footer className="footer">
             <Footer />
           </footer>
           {/*-------------------------------------------------------------------------------------*/}

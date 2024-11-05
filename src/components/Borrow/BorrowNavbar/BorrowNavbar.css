@@ -1,10 +1,10 @@
 /* Navbar.css */
 .Navbar {
-  position: fixed; /* Navbar'ı sayfanın en üstünde sabitler */
-  top: 0; /* Sayfanın en üst kısmına yerleştirir */
-  left: 0; /* Sayfanın en sol kısmına yerleştirir */
-  width: 100%; /* Genişliği tam sayfa yapar */
-  z-index: 1000; /* Sayfanın diğer elemanlarının önünde görünmesi için yüksek bir değer */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .Navbar .modal-content {
