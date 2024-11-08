@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/Searchbar';
 import Button from '../Button/Button';
 import './Navbar.css';
@@ -20,6 +21,7 @@ const Navbar = ({ onSearch }) => {
   });
 
   const [books, setBooks] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +85,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    window.location.href = 'http://localhost:3030/borrow';
+    navigate('/borrow');
   };
 
   return (
@@ -109,7 +111,6 @@ const Navbar = ({ onSearch }) => {
           </div>
         </div>
       </nav>
-
       {/* Add Book Modal */}
       <div className={`modal fade ${isAddBookModalOpen ? 'show' : ''}`} style={{ display: isAddBookModalOpen ? 'block' : 'none' }} tabIndex="-1" aria-labelledby="addBookModalTitle" aria-hidden={!isAddBookModalOpen}>
         <div className="modal-dialog modal-lg">
