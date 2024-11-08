@@ -83,7 +83,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    window.location.href = 'https://192.168.1.184:5001/borrow';
+    window.location.href = 'https://localhost:3030/borrow';
   };
 
   return (
