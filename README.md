@@ -1,8 +1,48 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- HomePage
+    - [x]  Navbar
+        - [x]  Homepage Button
+        - [x]  Searchbar
+        - [x]  Add Book Button
+        - [x]  Borrow Button
+    ---
+    - [x]  Container
+        - [x]  Book Card List
+            - [x]  Img
+            - [x]  Detail
+    ---
+    - [x]  Page limit
+    
+    ---
+    - [x]  Footbar
+---
+- DetailPage
+    - [x]  Return Homepage button
+    ---
+    - [x]  Details
+        - [x]  Book Title
+        - [x]  Book Authors
+        - [x]  Book Publishers
+        - [x]  Book Publication years
+        - [x]  Book Page Counts
+        - [x]  Book Languages
+        - [x]  Book Categories
+        - [x]  Book Isbns
+        - [x]  Book Stock Counts
+        - [x]  Book Descriptions
+        - [x]  Book img
+        ---
+        - [x]  Book Edit button
+        - [x]  Book Delete button
+        ---
+        - [x]  Similar Books
+        ---
+---
+- BorrowPage
+    - [x]  Borrow
+        - [x]  User Searchbar
+        - [x]  Users table
+        ---
+        - [x]  Book Searchbar
+        - [x]  Borrowed table
+            - [x]  Delete Borrow
+            - [x]  Edit Borrow
