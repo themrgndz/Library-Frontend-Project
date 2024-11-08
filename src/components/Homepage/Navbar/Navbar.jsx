@@ -85,7 +85,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    navigate('/borrowpage'); // Navigate to /borrowpage
+    navigate('/borrow'); // Navigate to /borrowpage
   };
 
   return (
