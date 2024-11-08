@@ -24,7 +24,7 @@ const Navbar = ({ onSearch }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const booksResponse = await fetch('https://localhost:5001/api/books');
+        const booksResponse = await fetch('https://192.168.1.184:5001/api/books');
         const booksData = await booksResponse.json();
         setBooks(booksData);
       } catch (error) {
@@ -62,7 +62,7 @@ const Navbar = ({ onSearch }) => {
     console.log("Data to submit:", dataToSubmit);
 
     try {
-      const response = await fetch('https://localhost:5001/api/book', {
+      const response = await fetch('https://192.168.1.184:5001/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSubmit)
@@ -83,7 +83,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    window.location.href = 'http://localhost:3030/borrow';
+    window.location.href = 'http://192.168.1.184:3030/borrow';
   };
 
   return (

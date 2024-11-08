@@ -18,11 +18,11 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookResponse = await axios.get(`https://localhost:5001/api/book/${id}`);
+        const bookResponse = await axios.get(`https://192.168.1.184:5001/api/book/${id}`);
         setBookInstance(bookResponse.data);
         setEditedBook(bookResponse.data);
 
-        const allBooksResponse = await axios.get('https://localhost:5001/api/book');
+        const allBooksResponse = await axios.get('https://192.168.1.184:5001/api/book');
         const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
         const randomBooks = [];
         while (randomBooks.length < 4 && filteredBooks.length > 0) {
