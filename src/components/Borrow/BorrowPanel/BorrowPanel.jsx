@@ -19,7 +19,7 @@ const BorrowPanel = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://192.168.1.184:5001/api/user');
+        const response = await axios.get('https://localhost:5001/api/user');
         const userData = Array.isArray(response.data) ? response.data : [];
         setUsers(userData);
         setFilteredUsers(userData);
@@ -45,7 +45,7 @@ const BorrowPanel = () => {
     setSelectedUserId(user.userId);
 
     try {
-      const response = await axios.get(`https://192.168.1.184:5001/api/borrow/user/${user.userId}`);
+      const response = await axios.get(`https://localhost:5001/api/borrow/user/${user.userId}`);
       setBorrowList(response.data);
       setCurrentBorrowPage(0);
     } catch (error) {
@@ -56,7 +56,7 @@ const BorrowPanel = () => {
 
   const handleDeleteBorrow = async (borrowId) => {
     try {
-      await axios.delete(`https://192.168.1.184:5001/api/borrow/${borrowId}`);
+      await axios.delete(`https://localhost:5001/api/borrow/${borrowId}`);
       setBorrowList(borrowList.filter((borrow) => borrow.borrowId !== borrowId));
       console.log(`Borrow with ID ${borrowId} deleted successfully`);
     } catch (error) {
@@ -78,7 +78,7 @@ const BorrowPanel = () => {
     };
   
     try {
-      await axios.put(`https://192.168.1.184:5001/api/borrow/${borrowId}`, fullUpdatedData);
+      await axios.put(`https://localhost:5001/api/borrow/${borrowId}`, fullUpdatedData);
   
       // Güncelleme işleminden sonra ilgili kullanıcının borç listesini yeniden alalım
       if (selectedUserId) {

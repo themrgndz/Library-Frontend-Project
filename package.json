@@ -2,7 +2,7 @@
   "name": "library",
   "private": true,
   "version": "0.0.0",
-  "proxy": "https://192.168.1.184:5001",
+  "proxy": "https://localhost:5001",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/Searchbar';
 import Button from '../Button/Button';
 import './Navbar.css';
@@ -21,12 +20,11 @@ const Navbar = ({ onSearch }) => {
   });
 
   const [books, setBooks] = useState([]);
-  const navigate = useNavigate(); // React Router hook
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const booksResponse = await fetch('https://192.168.1.184:5001/api/books');
+        const booksResponse = await fetch('https://localhost:5001/api/books');
         const booksData = await booksResponse.json();
         setBooks(booksData);
       } catch (error) {
@@ -64,7 +62,7 @@ const Navbar = ({ onSearch }) => {
     console.log("Data to submit:", dataToSubmit);
 
     try {
-      const response = await fetch('https://192.168.1.184:5001/api/book', {
+      const response = await fetch('https://localhost:5001/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSubmit)
@@ -85,14 +83,14 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    navigate('/borrow'); // Navigate to /borrowpage
+    window.location.href = 'http://localhost:3030/borrow';
   };
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
         <div className="container-fluid">
-          <Link className="navbar-brand mx-3" to="/">Uzmar Library</Link>
+          <a className="navbar-brand mx-3" href="./">Uzmar Library</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
