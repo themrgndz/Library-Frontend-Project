@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../SearchBar/Searchbar';
 import Button from '../Button/Button';
 import './Navbar.css';
@@ -20,6 +21,7 @@ const Navbar = ({ onSearch }) => {
   });
 
   const [books, setBooks] = useState([]);
+  const navigate = useNavigate(); // React Router hook
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,14 +85,14 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleBorrowClick = () => {
-    window.location.href = 'https://192.168.1.184:3030/borrow';
+    navigate('/borrowpage'); // Navigate to /borrowpage
   };
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
         <div className="container-fluid">
-          <a className="navbar-brand mx-3" href="./">Uzmar Library</a>
+          <Link className="navbar-brand mx-3" to="/">Uzmar Library</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
