@@ -12,7 +12,7 @@ const Homepage = () => {
     setLoading(true); 
     setError(null);
 
-    fetch(`http://192.168.1.184:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`)
+    fetch(`https://192.168.1.184:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

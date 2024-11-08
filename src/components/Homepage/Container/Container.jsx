@@ -3,8 +3,8 @@ import BookCard from '../Cart/Card';
 
 const fetchBooksFromAPI = async (searchTerm = '') => {
   const url = searchTerm
-    ? `http://192.168.1.184:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`
-    : 'http://192.168.1.184:5001/api/book';
+    ? `https://192.168.1.184:5001/api/book/search?search=${encodeURIComponent(searchTerm)}`
+    : 'https://192.168.1.184:5001/api/book';
 
   const response = await fetch(url, {
     method: 'GET',
