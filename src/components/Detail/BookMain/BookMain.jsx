@@ -18,11 +18,11 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookResponse = await axios.get(`https://192.168.1.184:5001/api/book/${id}`);
+        const bookResponse = await axios.get(`http://192.168.1.184:5001/api/book/${id}`);
         setBookInstance(bookResponse.data);
         setEditedBook(bookResponse.data);
 
-        const allBooksResponse = await axios.get('https://192.168.1.184:5001/api/book');
+        const allBooksResponse = await axios.get('http://192.168.1.184:5001/api/book');
         const filteredBooks = allBooksResponse.data.filter(book => book.id !== parseInt(id));
         const randomBooks = [];
         while (randomBooks.length < 4 && filteredBooks.length > 0) {
@@ -42,7 +42,7 @@ const BookDetail = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this book?");
     if (confirmDelete) {
       try {
-        await axios.delete(`https://localhost:5001/api/book/${id}`);
+        await axios.delete(`http://192.168.1.184:5001/api/book/${id}`);
         navigate('/');
       } catch (error) {
         console.error("Error deleting book:", error);
@@ -57,7 +57,7 @@ const BookDetail = () => {
 
   const handleSaveChanges = async () => {
     try {
-      await axios.put(`https://localhost:5001/api/book/${id}`, editedBook);
+      await axios.put(`http://192.168.1.184:5001/api/book/${id}`, editedBook);
       setBookInstance(editedBook);
       setIsEditing(false);
     } catch (error) {

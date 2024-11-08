@@ -43,7 +43,7 @@ const BorrowList = ({ borrowList, selectedUserId, currentBorrowPage, borrowsPerP
     console.log('Sending POST request with data:', borrowData);
   
     try {
-      const response = await fetch('https://192.168.1.184:5001/api/borrow', {
+      const response = await fetch('http://192.168.1.184:5001/api/borrow', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
