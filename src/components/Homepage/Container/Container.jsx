@@ -75,7 +75,6 @@ const Container = ({ searchResults }) => {
         ))}
       </div>
 
-      {/* Pagination buttons */}
       <div className="pagination">
         <button
           className="pagination-button"
